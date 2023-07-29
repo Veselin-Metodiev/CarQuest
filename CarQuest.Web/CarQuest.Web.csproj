@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-CarQuest.Web-ace29d51-ca00-469c-9ef3-ce83a3a80953</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarQuest.Common\CarQuest.Common.csproj" />
+    <ProjectReference Include="..\CarQuest.Data.Models\CarQuest.Data.Models.csproj" />
+    <ProjectReference Include="..\CarQuest.Data\CarQuest.Data.csproj" />
+    <ProjectReference Include="..\CarQuest.Web.ViewModels\CarQuest.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
