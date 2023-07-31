@@ -15,6 +15,7 @@ public class CarQuestDbContext : IdentityDbContext<ApplicationUser, IdentityRole
     }
 
     public DbSet<Mechanic> Mechanics { get; set; } = null!;
+    public DbSet<Car> Cars { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

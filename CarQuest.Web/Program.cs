@@ -1,6 +1,10 @@
+using System.Reflection;
 using CarQuest.Data;
 using CarQuest.Data.Models;
-
+using CarQuest.Services;
+using CarQuest.Services.Interfaces;
+using CarQuest.Services.Mapping;
+using CarQuest.Web.ViewModels.Home;
 using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -28,7 +32,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<ICarService, CarService>();
+
 WebApplication app = builder.Build();
+
+AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

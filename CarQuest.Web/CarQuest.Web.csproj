@@ -19,6 +19,7 @@
     <ProjectReference Include="..\CarQuest.Common\CarQuest.Common.csproj" />
     <ProjectReference Include="..\CarQuest.Data.Models\CarQuest.Data.Models.csproj" />
     <ProjectReference Include="..\CarQuest.Data\CarQuest.Data.csproj" />
+    <ProjectReference Include="..\CarQuest.Services\CarQuest.Services.csproj" />
     <ProjectReference Include="..\CarQuest.Web.ViewModels\CarQuest.Web.ViewModels.csproj" />
   </ItemGroup>
 

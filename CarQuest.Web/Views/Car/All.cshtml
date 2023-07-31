@@ -1,0 +1,39 @@
+﻿@using CarQuest.Data.Models
+@model IEnumerable<Car>
+@{
+	ViewData["Title"] = "Your Cars";
+}
+
+<h1>Your Cars</h1>
+@if (!Model.Any())
+{
+	<p>No cars added yet.</p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Brand</th>
+				<th>Model</th>
+				<th>Year</th>
+				<th>Mileage</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Car car in Model)
+			{
+				<tr>
+					<td>@car.Brand</td>
+					<td>@car.Model</td>
+					<td>@car.Year</td>
+					<td>@car.Mileage</td>
+					<td>
+						<a asp-controller="Car" asp-action="Edit" asp-route-id="@car.Id">Edit</a> |
+						<a asp-controller="Car" asp-action="Remove" asp-route-id="@car.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
