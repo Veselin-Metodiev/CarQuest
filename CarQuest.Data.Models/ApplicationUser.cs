@@ -1,5 +1,6 @@
 ﻿namespace CarQuest.Data.Models;
 
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
 public class ApplicationUser : IdentityUser<Guid>
@@ -9,5 +10,13 @@ public class ApplicationUser : IdentityUser<Guid>
         Cars = new HashSet<Car>();
     }
 
-    public ICollection<Car> Cars { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string FirstName { get; set; } = null!;
+
+    [Required]
+    [StringLength(50)]
+    public string LastName { get; set; } = null!;
+
+    public virtual ICollection<Car> Cars { get; set; }
 }
