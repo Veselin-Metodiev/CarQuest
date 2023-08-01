@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Your Cars";
 }
 
-<h1>Your Cars</h1>
+<h1>@ViewData["Title"]</h1>
 @if (!Model.Any())
 {
 	<p>No cars added yet.</p>

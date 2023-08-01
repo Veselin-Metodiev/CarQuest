@@ -1,10 +1,12 @@
 using System.Reflection;
+
 using CarQuest.Data;
 using CarQuest.Data.Models;
 using CarQuest.Services;
 using CarQuest.Services.Interfaces;
 using CarQuest.Services.Mapping;
 using CarQuest.Web.ViewModels.Home;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

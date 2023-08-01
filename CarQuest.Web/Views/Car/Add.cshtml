@@ -1,9 +1,9 @@
 ﻿@model CarQuest.Web.ViewModels.Car.CarAddAndUpdateViewModel
 @{
-	ViewData["Title"] = "Add Carsss";
+	ViewData["Title"] = "Add a Car to Your Cars";
 }
 
-<h1>Add a Car to Your Cars</h1>
+<h1>@ViewData["Title"]</h1>
 <form asp-action="Add" method="post">
 	<div>
 		<label asp-for="Brand">Brand:</label>
