@@ -12,7 +12,7 @@ using Services.Mapping;
 
 using static Common.EntityValidationConstants.CarViewModel;
 
-public class CarAddAndUpdateViewModel : IMapTo<Car>, IHaveCustomMappings
+public class CarAddAndUpdateViewModel : IMapTo<Car>, IMapFrom<Car>, IHaveCustomMappings
 {
 	public Guid Id { get; set; }
 
@@ -39,5 +39,11 @@ public class CarAddAndUpdateViewModel : IMapTo<Car>, IHaveCustomMappings
 				.MapFrom(s => s.Year.ToString()))
 			.ForMember(d => d.Mileage, opt => opt
 				.MapFrom(s => s.Mileage.ToString()));
+
+		configuration.CreateMap<Car, CarAddAndUpdateViewModel>()
+			.ForMember(d => d.Year, opt => opt
+				.MapFrom(s => int.Parse(s.Year)))
+			.ForMember(d => d.Mileage, opt => opt
+				.MapFrom(s => long.Parse(s.Mileage)));
 	}
 }

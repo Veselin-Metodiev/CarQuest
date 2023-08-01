@@ -1,62 +1,70 @@
 ﻿namespace CarQuest.Web.Controllers;
 
 using Data.Models;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using Services.Interfaces;
+
 using ViewModels.Car;
 
 [Authorize]
 public class CarController : BaseController
 {
-    private readonly ICarService carService;
+	private readonly ICarService carService;
 
-    public CarController(ICarService carService)
-    {
-        this.carService = carService;
-    }
+	public CarController(ICarService carService)
+	{
+		this.carService = carService;
+	}
 
-    public async Task<IActionResult> All()
-    {
-        IEnumerable<Car> cars = await carService.AllUserCarsAsync(GetUserId());
+	public async Task<IActionResult> All()
+	{
+		IEnumerable<Car> cars = await carService.AllUserCarsAsync(GetUserId());
 
-        return View(cars);
-    }
+		return View(cars);
+	}
 
-    [HttpGet]
-    public IActionResult Add()
-    {
-	    return View();
-    }
+	[HttpGet]
+	public IActionResult Add()
+	{
+		return View();
+	}
 
-    [HttpPost]
-    public async Task<IActionResult> Add(CarAddAndUpdateViewModel car)
-    {
-	    await carService.AddUserCarAsync(GetUserId(), car);
+	[HttpPost]
+	public async Task<IActionResult> Add(CarAddAndUpdateViewModel car)
+	{
+		await carService.AddUserCarAsync(GetUserId(), car);
 
-	    return RedirectToAction("All");
-    }
+		if (ModelState.IsValid)
+		{
+			return RedirectToAction("All");
+		}
 
-    public async Task<IActionResult> Remove(Guid Id)
-    {
-	    await carService.DeleteUserCarAsync(Id);
+		return View();
+	}
 
-	    return RedirectToAction("All");
-    }
+	public async Task<IActionResult> Remove(Guid Id)
+	{
+		await carService.DeleteUserCarAsync(Id);
 
-    [HttpGet]
-    public async Task<IActionResult> Edit(Guid Id)
-    {
-	    Car car = await carService.GetUserCar(Id);
+		return RedirectToAction("All");
+	}
 
-        return View(car);
-    }
+	[HttpGet]
+	public async Task<IActionResult> Edit(Guid Id)
+	{
+		CarAddAndUpdateViewModel car = await carService.GetCarAddAndUpdateViewModelAsync(Id);
 
-    [HttpPost]
-    public async Task<IActionResult> Edit(Guid Id, CarAddAndUpdateViewModel car)
-    {
-	    await carService.UpdateUserCarAsync(Id, car);
+		return View(car);
+	}
 
-	    return RedirectToAction("All");
-    }
+	[HttpPost]
+	public async Task<IActionResult> Edit(Guid Id, CarAddAndUpdateViewModel car)
+	{
+		await carService.UpdateUserCarAsync(Id, car);
+
+		return RedirectToAction("All");
+	}
 }

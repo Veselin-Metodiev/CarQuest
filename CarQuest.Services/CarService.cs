@@ -47,7 +47,7 @@ public class CarService : ICarService
 
     public async Task UpdateUserCarAsync(Guid carId, CarAddAndUpdateViewModel car)
     {
-	    Car carDb = await GetUserCar(carId);
+	    Car carDb = await GetUserCarAsync(carId);
 
 	    carDb.Model = car.Model;
         carDb.Brand = car.Brand;
@@ -57,11 +57,21 @@ public class CarService : ICarService
         await context.SaveChangesAsync();
     }
 
-    public async Task<Car> GetUserCar(Guid carId)
+    public async Task<Car> GetUserCarAsync(Guid carId)
     {
 	    Car car = await context.Cars
 		    .FirstAsync(c => c.Id == carId);
 
         return car;
+    }
+
+    public async Task<CarAddAndUpdateViewModel> GetCarAddAndUpdateViewModelAsync(Guid carId)
+    {
+	    Car car = await GetUserCarAsync(carId);
+
+        CarAddAndUpdateViewModel carViewModel = 
+	        AutoMapperConfig.MapperInstance.Map<CarAddAndUpdateViewModel>(car);
+
+        return carViewModel;
     }
 }
