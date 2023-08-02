@@ -1,7 +1,7 @@
 ﻿namespace CarQuest.Services.Interfaces;
 
-using Common;
 using Data.Models;
+
 using Web.ViewModels.Car;
 
 public interface ICarService

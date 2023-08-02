@@ -12,8 +12,4 @@
     <ProjectReference Include="..\CarQuest.Services.Mapping\CarQuest.Services.Mapping.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Agents\" />
-  </ItemGroup>
-
 </Project>
