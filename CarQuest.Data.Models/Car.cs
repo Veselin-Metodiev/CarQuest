@@ -9,6 +9,11 @@ using static EntityValidationConstants.Car;
 
 public class Car
 {
+	public Car()
+	{
+		Tickets = new HashSet<Ticket>();
+	}
+
     [Key]
     public Guid Id { get; set; }
 
@@ -33,4 +38,6 @@ public class Car
     public Guid OwnerId { get; set; }
 
     public virtual ApplicationUser Owner { get; set; } = null!;
+
+    public virtual ICollection<Ticket> Tickets { get; set; }
 }

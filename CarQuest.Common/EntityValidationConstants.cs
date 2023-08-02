@@ -26,4 +26,34 @@ public static class EntityValidationConstants
 	    public const long MileageMaxValue = 10000000;
 	    public const int MileageMinValue = 1;
     }
+
+    public class ApplicationUser
+    {
+	    public const int FirstNameMaxLength = 50;
+
+	    public const int LastNameMaxLength = 50;
+    }
+
+    public class Mechanic
+    {
+	    public const int PhoneNumberMaxLength = 20;
+
+	    public const int ShopAddressMaxLength = 100;
+    }
+
+    public class Ticket
+    {
+        public const int TitleMaxLength = 50;
+
+        public const int DescriptionMaxLength = 500;
+    }
+
+    public class MechanicBecomeViewModel
+    {
+	    public const int PhoneNumberMaxLength = 20;
+	    public const int PhoneNumberMinLength = 10;
+
+	    public const int ShopAddressMaxLength = 500;
+	    public const int ShopAddressMinLength = 10;
+    }
 }
