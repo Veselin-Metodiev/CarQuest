@@ -1,0 +1,21 @@
+﻿@model CarQuest.Web.ViewModels.Mechanic.MechanicBecomeViewModel
+@{
+	ViewData["Title"] = "Become a Mechanic";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>If you are a skilled mechanic and want to become a registered mechanic on our platform, please enter your phone number and mechanic shop address below.</p>
+
+<form asp-action="Become" method="post">
+	<div>
+		<label for="phoneNumber">Phone Number:</label>
+		<input type="tel" id="phoneNumber" name="PhoneNumber" class="form-control" required>
+		<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+	</div>
+	<div>
+		<label for="shopAddress">Mechanic Shop Address:</label>
+		<textarea id="shopAddress" name="ShopAddress" class="form-control" rows="3" required></textarea>
+		<span asp-validation-for="ShopAddress" class="text-danger"></span>
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
