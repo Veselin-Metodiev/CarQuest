@@ -56,4 +56,13 @@ public static class EntityValidationConstants
 	    public const int ShopAddressMaxLength = 500;
 	    public const int ShopAddressMinLength = 10;
     }
+
+    public class TicketAddAndUpdateViewModel
+    {
+	    public const int TitleMaxLength = 50;
+        public const int TitleMinLength = 10;
+
+	    public const int DescriptionMaxLength = 500;
+        public const int DescriptionMinLength = 10;
+    }
 }

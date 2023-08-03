@@ -1,0 +1,41 @@
+﻿@using CarQuest.Web.ViewModels.Ticket
+@model IEnumerable<CarQuest.Web.ViewModels.Ticket.TicketAllViewModel>
+@{
+	ViewData["Title"] = "Your Tickets";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (!Model.Any())
+{
+	<p>No tickets found for this user.</p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Ticket ID</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Car</th>
+				<th>Assigned Mechanic</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (TicketAllViewModel ticket in Model)
+			{
+				<tr>
+					<td>@ticket.Id</td>
+					<td>@ticket.Title</td>
+					<td>@ticket.Description</td>
+					<td>@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</td>
+					@if (ticket.AssignedMechanic != null)
+					{
+						<td>@ticket.AssignedMechanic.User.FirstName @ticket.AssignedMechanic.User.LastName</td>
+					}
+
+				</tr>
+			}
+		</tbody>
+	</table>
+}

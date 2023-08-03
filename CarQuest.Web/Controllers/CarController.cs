@@ -30,7 +30,7 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		IEnumerable<Car> cars = await carService.AllUserCarsAsync(userId);
+		IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
 
 		return View(cars);
 	}

@@ -1,5 +1,6 @@
-﻿@using CarQuest.Data.Models
-@model IEnumerable<Car>
+﻿@using CarQuest.Web.ViewModels.Car
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<CarAllViewModel>
 @{
 	ViewData["Title"] = "Your Cars";
 }
@@ -21,7 +22,7 @@ else
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (Car car in Model)
+			@foreach (CarAllViewModel car in Model)
 			{
 				<tr>
 					<td>@car.Brand</td>

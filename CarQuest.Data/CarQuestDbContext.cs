@@ -1,6 +1,7 @@
 ﻿namespace CarQuest.Data;
 
 using System.Reflection;
+using Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,12 +17,11 @@ public class CarQuestDbContext : IdentityDbContext<ApplicationUser, IdentityRole
 
     public DbSet<Mechanic> Mechanics { get; set; } = null!;
     public DbSet<Car> Cars { get; set; } = null!;
+    public DbSet<Ticket> Tickets { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        Assembly configAssembly = Assembly.GetAssembly(typeof(CarQuestDbContext)) ??
-                                  Assembly.GetExecutingAssembly();
-        builder.ApplyConfigurationsFromAssembly(configAssembly);
+        builder.ApplyConfiguration(new TicketConfiguration());
 
         base.OnModelCreating(builder);
     }

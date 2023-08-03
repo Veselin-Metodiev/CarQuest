@@ -1,0 +1,31 @@
+﻿@using CarQuest.Web.ViewModels.Car
+@model CarQuest.Web.ViewModels.Ticket.TicketAddAndUpdateViewModel
+@{
+	ViewData["Title"] = "Add Ticket";
+}
+
+<h1>@ViewData["Title"]</h1>
+<form asp-action="UserAdd" method="post">
+	<div>
+		<label asp-for="@Model.Title">Title:</label>
+		<input asp-for="@Model.Title" class="form-control" required>
+		<span asp-validation-for="@Model.Title" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="@Model.Description">Description:</label>
+		<textarea asp-for="@Model.Description" class="form-control" rows="3" required></textarea>
+		<span asp-validation-for="@Model.Description" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="@Model.CarId">Select Car:</label>
+		<select asp-for="@Model.CarId" class="form-control" required>
+			<option value="">-- Select Car --</option>
+			@foreach (CarAllViewModel car in Model.Cars)
+			{
+				<option value="@car.Id">@car.Brand @car.Model @car.Year</option>
+			}
+		</select>
+		<span asp-validation-for="@Model.CarId" class="text-danger"></span>
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
