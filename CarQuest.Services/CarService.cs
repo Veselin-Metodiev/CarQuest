@@ -18,10 +18,11 @@ public class CarService : ICarService
         this.context = context;
     }
 
-    public async Task<IEnumerable<Car>> AllUserCarsAsync(Guid userId)
+    public async Task<IEnumerable<CarAllViewModel>> AllUserCarsAsync(Guid userId)
     {
-        IEnumerable<Car> cars = await context.Cars
+        IEnumerable<CarAllViewModel> cars = await context.Cars
             .Where(c => c.Owner.Id == userId)
+            .Select(c => AutoMapperConfig.MapperInstance.Map<CarAllViewModel>(c))
             .ToArrayAsync();
 
         return cars;

@@ -6,7 +6,7 @@ using Web.ViewModels.Car;
 
 public interface ICarService
 {
-    Task<IEnumerable<Car>> AllUserCarsAsync(Guid userId);
+    Task<IEnumerable<CarAllViewModel>> AllUserCarsAsync(Guid userId);
 
     Task AddUserCarAsync(Guid userId, CarAddAndUpdateViewModel car);
 
