@@ -47,7 +47,7 @@ public class CarController : BaseController
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Add(CarAddAndUpdateViewModel car)
+	public async Task<IActionResult> Add(CarAddViewModel car)
 	{
 		Guid userId = GetUserId();
 
@@ -90,13 +90,13 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		CarAddAndUpdateViewModel car = await carService.GetCarAddAndUpdateViewModelAsync(Id);
+		CarUpdateViewModel car = await carService.GetCarAddAndUpdateViewModelAsync(Id);
 
 		return View(car);
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Edit(Guid Id, CarAddAndUpdateViewModel car)
+	public async Task<IActionResult> Edit(Guid Id, CarUpdateViewModel car)
 	{
 		Guid userId = GetUserId();
 

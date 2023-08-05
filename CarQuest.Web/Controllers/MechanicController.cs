@@ -18,11 +18,11 @@ public class MechanicController : BaseController
 	}
 
 	[HttpGet]
-	public async Task<ViewResult> Become()
+	public async Task<IActionResult> Become()
 	{
 		if (await mechanicService.MechanicExistsByUserIdAsync(GetUserId()))
 		{
-			RedirectToAction("Index", "Home");
+			return RedirectToAction("Index", "Home");
 		}
 
 		return View();
@@ -33,7 +33,7 @@ public class MechanicController : BaseController
 	{
 		if (await mechanicService.MechanicExistsByUserIdAsync(GetUserId()))
 		{
-			RedirectToAction("Index", "Home");
+			return RedirectToAction("Index", "Home");
 		}
 
 		if (!ModelState.IsValid)

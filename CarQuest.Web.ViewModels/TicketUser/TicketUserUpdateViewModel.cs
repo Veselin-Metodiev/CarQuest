@@ -1,5 +1,7 @@
-﻿namespace CarQuest.Web.ViewModels.Ticket;
+﻿namespace CarQuest.Web.ViewModels.TicketUser;
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using Car;
@@ -10,8 +12,13 @@ using Services.Mapping;
 
 using static Common.EntityValidationConstants.TicketAddAndUpdateViewModel;
 
-public class TicketAddAndUpdateViewModel : IMapTo<Ticket>
+public class TicketUserUpdateViewModel : IMapFrom<Ticket>
 {
+	public TicketUserUpdateViewModel()
+	{
+		Cars = new HashSet<CarAllViewModel>();
+	}
+
 	public Guid Id { get; set; }
 
 	[Required]
@@ -24,5 +31,5 @@ public class TicketAddAndUpdateViewModel : IMapTo<Ticket>
 
 	public Guid CarId { get; set; }
 
-	public virtual IEnumerable<CarAllViewModel> Cars { get; set; } = null!;
+	public virtual IEnumerable<CarAllViewModel> Cars { get; set; }
 }

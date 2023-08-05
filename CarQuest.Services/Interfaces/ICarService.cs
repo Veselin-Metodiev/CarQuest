@@ -8,13 +8,13 @@ public interface ICarService
 {
     Task<IEnumerable<CarAllViewModel>> AllUserCarsAsync(Guid userId);
 
-    Task AddUserCarAsync(Guid userId, CarAddAndUpdateViewModel car);
+    Task AddUserCarAsync(Guid userId, CarAddViewModel car);
 
     Task DeleteUserCarAsync(Guid carId);
 
-    Task UpdateUserCarAsync(Guid carId, CarAddAndUpdateViewModel car);
+    Task UpdateUserCarAsync(Guid carId, CarUpdateViewModel car);
 
     Task<Car> GetUserCarAsync(Guid carId);
 
-    Task<CarAddAndUpdateViewModel> GetCarAddAndUpdateViewModelAsync(Guid carId);
+    Task<CarUpdateViewModel> GetCarAddAndUpdateViewModelAsync(Guid carId);
 }
