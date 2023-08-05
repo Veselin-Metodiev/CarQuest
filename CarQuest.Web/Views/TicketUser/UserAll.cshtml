@@ -1,5 +1,5 @@
-﻿@using CarQuest.Web.ViewModels.Ticket
-@model IEnumerable<CarQuest.Web.ViewModels.Ticket.TicketAllViewModel>
+﻿@	using CarQuest.Web.ViewModels.Ticket
+@model IEnumerable<TicketUserAllViewModel>
 @{
 	ViewData["Title"] = "Your Tickets";
 }
@@ -14,7 +14,6 @@ else
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Ticket ID</th>
 				<th>Title</th>
 				<th>Description</th>
 				<th>Car</th>
@@ -22,10 +21,9 @@ else
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (TicketAllViewModel ticket in Model)
+			@foreach (TicketUserAllViewModel ticket in Model)
 			{
 				<tr>
-					<td>@ticket.Id</td>
 					<td>@ticket.Title</td>
 					<td>@ticket.Description</td>
 					<td>@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</td>
@@ -33,7 +31,10 @@ else
 					{
 						<td>@ticket.AssignedMechanic.User.FirstName @ticket.AssignedMechanic.User.LastName</td>
 					}
-
+					<td>
+						<a asp-controller="TicketUser" asp-action="UserEdit" asp-route-id="@ticket.Id">Edit</a> |
+						<a asp-controller="TicketUser" asp-action="UserRemove" asp-route-id="@ticket.Id">Delete</a>
+					</td>
 				</tr>
 			}
 		</tbody>

@@ -1,11 +1,12 @@
 ﻿@	using CarQuest.Web.ViewModels.Car
-@model 			TicketUserAddViewModel
+@model 			TicketUserUpdateViewModel
 @{
 	ViewData["Title"] = "Add Ticket";
 }
 
 <h1>@ViewData["Title"]</h1>
-<form asp-action="UserAdd" method="post">
+<form asp-action="UserEdit" method="post">
+	<input type="hidden" asp-for="Id" />
 	<div>
 		<label asp-for="Title">Title:</label>
 		<input asp-for="Title" class="form-control" required>
@@ -27,5 +28,5 @@
 		</select>
 		<span asp-validation-for="CarId" class="text-danger"></span>
 	</div>
-	<button type="submit" class="btn btn-primary">Submit</button>
+	<button type="submit" class="btn btn-primary">Edit</button>
 </form>

@@ -13,7 +13,16 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
 			.HasOne(t => t.Car)
 			.WithMany(c => c.Tickets)
 			.HasForeignKey(t => t.CarId)
-			.OnDelete(DeleteBehavior.NoAction)
-			.HasConstraintName("FK_Ticket_Cars_CarId");
+			.OnDelete(DeleteBehavior.NoAction);
+
+		builder
+			.HasOne(t => t.Owner)
+			.WithMany(c => c.Tickets)
+			.HasForeignKey(t => t.OwnerId);
+
+		builder
+			.HasOne(t => t.AssignedMechanic)
+			.WithMany(c => c.Tickets)
+			.HasForeignKey(t => t.AssignedMechanicId);
 	}
 }

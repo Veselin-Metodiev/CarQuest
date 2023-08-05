@@ -60,9 +60,9 @@ public static class EntityValidationConstants
     public class TicketAddAndUpdateViewModel
     {
 	    public const int TitleMaxLength = 50;
-        public const int TitleMinLength = 10;
+        public const int TitleMinLength = 5;
 
 	    public const int DescriptionMaxLength = 500;
-        public const int DescriptionMinLength = 10;
+        public const int DescriptionMinLength = 5;
     }
 }
