@@ -362,9 +362,8 @@ namespace CarQuest.Data.Migrations
                     b.HasOne("CarQuest.Data.Models.Car", "Car")
                         .WithMany("Tickets")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Ticket_Cars_CarId");
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("CarQuest.Data.Models.ApplicationUser", "Owner")
                         .WithMany("Tickets")

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarQuest.Data.Migrations
 {
     [DbContext(typeof(CarQuestDbContext))]
-    [Migration("20230802154536_MechanicCustomFields")]
-    partial class MechanicCustomFields
+    [Migration("20230804214339_ResetDb")]
+    partial class ResetDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -160,6 +160,42 @@ namespace CarQuest.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Mechanics");
+                });
+
+            modelBuilder.Entity("CarQuest.Data.Models.Ticket", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AssignedMechanicId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignedMechanicId");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -319,6 +355,31 @@ namespace CarQuest.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CarQuest.Data.Models.Ticket", b =>
+                {
+                    b.HasOne("CarQuest.Data.Models.Mechanic", "AssignedMechanic")
+                        .WithMany("Tickets")
+                        .HasForeignKey("AssignedMechanicId");
+
+                    b.HasOne("CarQuest.Data.Models.Car", "Car")
+                        .WithMany("Tickets")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("CarQuest.Data.Models.ApplicationUser", "Owner")
+                        .WithMany("Tickets")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AssignedMechanic");
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -373,6 +434,18 @@ namespace CarQuest.Data.Migrations
             modelBuilder.Entity("CarQuest.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Cars");
+
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("CarQuest.Data.Models.Car", b =>
+                {
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("CarQuest.Data.Models.Mechanic", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }
