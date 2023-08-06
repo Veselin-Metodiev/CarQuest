@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 using ViewModels.Car;
+
 using static Common.NotificationMessagesConstants;
 
 
@@ -31,9 +32,17 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
+		try
+		{
+			IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
 
-		return View(cars);
+			return View(cars);
+		}
+		catch (Exception ex)
+		{
+			TempData[ErrorMessage] = ex.Message;
+			return RedirectToAction("Index", "Home");
+		}
 	}
 
 	[HttpGet]
@@ -63,8 +72,16 @@ public class CarController : BaseController
 		{
 			return View();
 		}
-		
-		await carService.AddUserCarAsync(userId, car);
+
+		try
+		{
+			await carService.AddUserCarAsync(userId, car);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
 		return RedirectToAction("All");
 	}
@@ -79,7 +96,16 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		await carService.DeleteUserCarAsync(Id);
+		try
+		{
+			await carService.DeleteUserCarAsync(Id);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
+
 
 		return RedirectToAction("All");
 	}
@@ -95,9 +121,16 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		CarUpdateViewModel car = await carService.GetCarAddAndUpdateViewModelAsync(Id);
-
-		return View(car);
+		try
+		{
+			CarUpdateViewModel car = await carService.GetCarAddAndUpdateViewModelAsync(Id);
+			return View(car);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 	}
 
 	[HttpPost]
@@ -116,7 +149,16 @@ public class CarController : BaseController
 			return View(car);
 		}
 
-		await carService.UpdateUserCarAsync(Id, car);
+		try
+		{
+			await carService.UpdateUserCarAsync(Id, car);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
+
 
 		return RedirectToAction("All");
 	}

@@ -20,7 +20,7 @@ public class TicketUserController : BaseController
 	private readonly IMechanicService mechanicService;
 	private readonly ICarService carService;
 
-	public TicketUserController(ITicketUserService ticketUserService ,IMechanicService mechanicService, ICarService carService)
+	public TicketUserController(ITicketUserService ticketUserService, IMechanicService mechanicService, ICarService carService)
 	{
 		this.ticketUserService = ticketUserService;
 		this.mechanicService = mechanicService;
@@ -37,10 +37,17 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		IEnumerable<TicketUserAllViewModel> tickets =
-			 ticketUserService.GetAllUserTicketsAsync(userId);
-
-		return View(tickets);
+		try
+		{
+			IEnumerable<TicketUserAllViewModel> tickets =
+				ticketUserService.GetAllUserTicketsAsync(userId);
+			return View(tickets);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 	}
 
 	[HttpGet]
@@ -56,10 +63,18 @@ public class TicketUserController : BaseController
 
 		TicketUserAddViewModel ticketUser = new();
 
-		IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
-		ticketUser.Cars = cars;
+		try
+		{
+			IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
+			ticketUser.Cars = cars;
 
-		return View(ticketUser);
+			return View(ticketUser);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 	}
 
 	[HttpPost]
@@ -81,7 +96,15 @@ public class TicketUserController : BaseController
 			return View(ticketUserView);
 		}
 
-		await ticketUserService.AddUserTicketAsync(ticketUserView, userId);
+		try
+		{
+			await ticketUserService.AddUserTicketAsync(ticketUserView, userId);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
 		return RedirectToAction("All");
 	}
@@ -96,7 +119,15 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		await ticketUserService.RemoveUserTicketAsync(Id);
+		try
+		{
+			await ticketUserService.RemoveUserTicketAsync(Id);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
 		return RedirectToAction("All");
 	}
@@ -112,13 +143,21 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		TicketUserUpdateViewModel ticketUserModel =
-			await ticketUserService.GetTicketModelByIdAsync(Id);
+		try
+		{
+			TicketUserUpdateViewModel ticketUserModel =
+						await ticketUserService.GetTicketModelByIdAsync(Id);
 
-		IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
-		ticketUserModel.Cars = cars;
+			IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
+			ticketUserModel.Cars = cars;
 
-		return View(ticketUserModel);
+			return View(ticketUserModel);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 	}
 
 	[HttpPost]
@@ -137,7 +176,15 @@ public class TicketUserController : BaseController
 			return View(ticketUserModel);
 		}
 
-		await ticketUserService.UpdateTicketAsync(ticketUserModel);
+		try
+		{
+			await ticketUserService.UpdateTicketAsync(ticketUserModel);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
 		return RedirectToAction("All");
 	}
@@ -152,9 +199,17 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		MechanicInfoViewModel mechanicModel =
-			await ticketUserService.GetMechanicInfoAsync(id);
+		try
+		{
+			MechanicInfoViewModel mechanicModel =
+						await ticketUserService.GetMechanicInfoAsync(id);
 
-		return View(mechanicModel);
+			return View(mechanicModel);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 	}
 }

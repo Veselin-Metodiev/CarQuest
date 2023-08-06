@@ -1,9 +1,12 @@
 ﻿namespace CarQuest.Web.Controllers;
 
 using Data.Models.Enums;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using Services.Interfaces;
+
 using ViewModels.Car;
 using ViewModels.TicketMechanic;
 
@@ -30,8 +33,16 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		IEnumerable<TicketMechanicAllViewModel> ticketModel =
-			 ticketMechanicService.GetAllTicketsAsync();
+		try
+		{
+			IEnumerable<TicketMechanicAllViewModel> ticketModel =
+				ticketMechanicService.GetAllTicketsAsync();
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
 		return View(ticketModel);
 	}
@@ -52,7 +63,15 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("AllUser");
 		}
 
-		await ticketMechanicService.TakeTicketAsync(id, userId);
+		try
+		{
+			await ticketMechanicService.TakeTicketAsync(id, userId);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
 		return RedirectToAction("AllMechanic");
 	}
@@ -67,10 +86,17 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		IEnumerable<TicketMechanicAllViewModel> tickets =
-			await ticketMechanicService.GetAllTicketsByStatusAsync(userId, Status.Taken);
-
-		return View(tickets);
+		try
+		{
+			IEnumerable<TicketMechanicAllViewModel> tickets =
+				await ticketMechanicService.GetAllTicketsByStatusAsync(userId, Status.Taken);
+			return View(tickets);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 	}
 
 	public async Task<IActionResult> Completed()
@@ -83,10 +109,17 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		IEnumerable<TicketMechanicAllViewModel> tickets =
-			await ticketMechanicService.GetAllTicketsByStatusAsync(userId, Status.Completed);
-
-		return View(tickets);
+		try
+		{
+			IEnumerable<TicketMechanicAllViewModel> tickets =
+				await ticketMechanicService.GetAllTicketsByStatusAsync(userId, Status.Completed);
+			return View(tickets);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 	}
 
 	public async Task<IActionResult> Resign(Guid id)
@@ -99,7 +132,15 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		await ticketMechanicService.ResignTicketAsync(id);
+		try
+		{
+			await ticketMechanicService.ResignTicketAsync(id);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
 		return RedirectToAction("AllMechanic");
 	}
@@ -114,7 +155,15 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		await ticketMechanicService.CompleteTicketAsync(id);
+		try
+		{
+			await ticketMechanicService.CompleteTicketAsync(id);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
 		return RedirectToAction("Completed");
 	}
@@ -129,8 +178,16 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		CarDetailsViewModel carModel = await ticketMechanicService.GetCarDetailsAsync(id);
+		try
+		{
+			CarDetailsViewModel carModel = await ticketMechanicService.GetCarDetailsAsync(id);
+			return View(carModel);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
 
-		return View(carModel);
 	}
 }

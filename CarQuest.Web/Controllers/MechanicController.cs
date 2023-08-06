@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 using ViewModels.Mechanic;
+
 using static Common.NotificationMessagesConstants;
 
 [Authorize]
@@ -58,8 +59,16 @@ public class MechanicController : BaseController
 			return View();
 		}
 
-		await mechanicService.RemoveMechanicCarsAsync(GetUserId());
-		await mechanicService.AddMechanicAsync(mechanicViewModel, GetUserId());
+		try
+		{
+			await mechanicService.RemoveMechanicCarsAsync(GetUserId());
+			await mechanicService.AddMechanicAsync(mechanicViewModel, GetUserId());
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return View();
+		}
 
 		return RedirectToAction("Index", "Home");
 	}
