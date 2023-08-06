@@ -33,7 +33,7 @@ public class CarAddViewModel : IMapTo<Car>, IHaveCustomMappings
 
 	public void CreateMappings(IProfileExpression configuration)
 	{
-		configuration.CreateMap<CarAddAndUpdateViewModel, Car>()
+		configuration.CreateMap<CarAddViewModel, Car>()
 			.ForMember(d => d.Year, opt => opt
 				.MapFrom(s => s.Year.ToString()))
 			.ForMember(d => d.Mileage, opt => opt

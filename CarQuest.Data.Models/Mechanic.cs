@@ -1,7 +1,7 @@
 ﻿namespace CarQuest.Data.Models;
 
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 using static Common.EntityValidationConstants.Mechanic;
 
 public class Mechanic
@@ -22,6 +22,8 @@ public class Mechanic
     [StringLength(ShopAddressMaxLength)]
     public string ShopAddress { get; set; } = null!;
     
+    [Required]
+    [ForeignKey(nameof(User))]
     public Guid UserId { get; set; }
 
     public virtual ApplicationUser User { get; set; } = null!;

@@ -1,0 +1,29 @@
+﻿@using CarQuest.Web.ViewModels.TicketUser
+@model MechanicInfoViewModel
+@{
+	ViewData["Title"] = "Your Tickets";
+}
+
+<h1>@ViewData["Title"]</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>FirstName</th>
+			<th>LastName</th>
+			<th>PhoneNumber</th>
+			<th>ShopAddress</th>
+			<th>Completed Tickets</th>
+			<th>Taken Tickets</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>@Model.FirstName</td>
+			<td>@Model.LastName</td>
+			<td>@Model.PhoneNumber</td>
+			<td>@Model.ShopAddress</td>
+			<td>@Model.CompletedTickets</td>
+			<td>@Model.TakenTickets</td>
+		</tr>
+	</tbody>
+</table>

@@ -8,44 +8,49 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 using ViewModels.Car;
-using ViewModels.Ticket;
+using ViewModels.TicketUser;
+
+using static Common.NotificationMessagesConstants;
+
 
 [Authorize]
 public class TicketUserController : BaseController
 {
-	private readonly ITicketService ticketService;
+	private readonly ITicketUserService ticketUserService;
 	private readonly IMechanicService mechanicService;
 	private readonly ICarService carService;
 
-	public TicketUserController(ITicketService ticketService ,IMechanicService mechanicService, ICarService carService)
+	public TicketUserController(ITicketUserService ticketUserService ,IMechanicService mechanicService, ICarService carService)
 	{
-		this.ticketService = ticketService;
+		this.ticketUserService = ticketUserService;
 		this.mechanicService = mechanicService;
 		this.carService = carService;
 	}
 
-	public async Task<IActionResult> UserAll()
+	public async Task<IActionResult> All()
 	{
 		Guid userId = GetUserId();
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to see tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
 		IEnumerable<TicketUserAllViewModel> tickets =
-			await ticketService.GetAllUserTicketsAsync(userId);
+			 ticketUserService.GetAllUserTicketsAsync(userId);
 
 		return View(tickets);
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> UserAdd()
+	public async Task<IActionResult> Add()
 	{
 		Guid userId = GetUserId();
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to add tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -58,12 +63,13 @@ public class TicketUserController : BaseController
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> UserAdd(TicketUserAddViewModel ticketUserView)
+	public async Task<IActionResult> Add(TicketUserAddViewModel ticketUserView)
 	{
 		Guid userId = GetUserId();
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to add tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -75,37 +81,39 @@ public class TicketUserController : BaseController
 			return View(ticketUserView);
 		}
 
-		await ticketService.AddUserTicketAsync(ticketUserView, userId);
+		await ticketUserService.AddUserTicketAsync(ticketUserView, userId);
 
-		return RedirectToAction("UserAll");
+		return RedirectToAction("All");
 	}
 
-	public async Task<IActionResult> UserRemove(Guid Id)
+	public async Task<IActionResult> Remove(Guid Id)
 	{
 		Guid userId = GetUserId();
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to remove tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
-		await ticketService.RemoveUserTicketAsync(Id);
+		await ticketUserService.RemoveUserTicketAsync(Id);
 
-		return RedirectToAction("UserAll");
+		return RedirectToAction("All");
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> UserEdit(Guid Id)
+	public async Task<IActionResult> Edit(Guid Id)
 	{
 		Guid userId = GetUserId();
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to edit tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
 		TicketUserUpdateViewModel ticketUserModel =
-			await ticketService.GetTicketModelByIdAsync(Id);
+			await ticketUserService.GetTicketModelByIdAsync(Id);
 
 		IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
 		ticketUserModel.Cars = cars;
@@ -114,12 +122,13 @@ public class TicketUserController : BaseController
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> UserEdit(TicketUserUpdateViewModel ticketUserModel)
+	public async Task<IActionResult> Edit(TicketUserUpdateViewModel ticketUserModel)
 	{
 		Guid userId = GetUserId();
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to edit tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -128,8 +137,24 @@ public class TicketUserController : BaseController
 			return View(ticketUserModel);
 		}
 
-		await ticketService.UpdateTicketAsync(ticketUserModel);
+		await ticketUserService.UpdateTicketAsync(ticketUserModel);
 
-		return RedirectToAction("UserAll");
+		return RedirectToAction("All");
+	}
+
+	public async Task<IActionResult> MechanicInfo(Guid id)
+	{
+		Guid userId = GetUserId();
+
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to see mehcanic info";
+			return RedirectToAction("Index", "Home");
+		}
+
+		MechanicInfoViewModel mechanicModel =
+			await ticketUserService.GetMechanicInfoAsync(id);
+
+		return View(mechanicModel);
 	}
 }

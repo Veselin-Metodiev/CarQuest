@@ -1,0 +1,35 @@
+﻿@using CarQuest.Web.ViewModels.TicketMechanic
+@model IEnumerable<CarQuest.Web.ViewModels.TicketMechanic.TicketMechanicAllViewModel>
+@{
+	ViewData["Title"] = "All Tickets";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (!Model.Any())
+{
+	<p>No tickets</p>
+}
+else
+{
+	<table class="table">
+		<thead>
+		<tr>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Car</th>
+			<th>Owner</th>
+		</tr>
+		</thead>
+		<tbody>
+			@foreach (TicketMechanicAllViewModel ticket in Model)
+		{
+			<tr>
+				<td>@ticket.Title</td>
+				<td>@ticket.Description</td>
+				<td>@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</td>
+				<td>@ticket.OwnerFirstName @ticket.OwnerLastName</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+}

@@ -1,11 +1,12 @@
-﻿@	using CarQuest.Web.ViewModels.Car
-@model 			TicketUserUpdateViewModel
+﻿@using CarQuest.Web.ViewModels.Car
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarQuest.Web.ViewModels.TicketUser.TicketUserUpdateViewModel
 @{
 	ViewData["Title"] = "Add Ticket";
 }
 
 <h1>@ViewData["Title"]</h1>
-<form asp-action="UserEdit" method="post">
+<form asp-action="Edit" method="post">
 	<input type="hidden" asp-for="Id" />
 	<div>
 		<label asp-for="Title">Title:</label>

@@ -36,7 +36,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<IMechanicService, MechanicService>();
-builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<ITicketUserService, TicketUserService>();
+builder.Services.AddScoped<ITicketMechanicService, TicketMechanicService>();
 
 WebApplication app = builder.Build();
 

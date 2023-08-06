@@ -1,6 +1,6 @@
 ﻿namespace CarQuest.Services;
 
-using CarQuest.Web.ViewModels.TicketUser;
+using Web.ViewModels.TicketUser;
 
 using Data;
 using Data.Models;
@@ -12,31 +12,25 @@ using Mapping;
 using Microsoft.EntityFrameworkCore;
 
 using Web.ViewModels.Car;
-using Web.ViewModels.Ticket;
+using System.Collections.Generic;
 
-public class TicketService : ITicketService
+public class TicketUserService : ITicketUserService
 {
 	private readonly CarQuestDbContext context;
 
-	public TicketService(CarQuestDbContext context)
+	public TicketUserService(CarQuestDbContext context)
 	{
 		this.context = context;
 	}
 
-	public async Task<IEnumerable<TicketUserAllViewModel>> GetAllUserTicketsAsync(Guid userId)
+	public IEnumerable<TicketUserAllViewModel> GetAllUserTicketsAsync(Guid userId)
 	{
-		IEnumerable<TicketUserAllViewModel> tickets = await context.Tickets
-			.Where(u => u.OwnerId == userId)
-			.Select(t => AutoMapperConfig.MapperInstance.Map<TicketUserAllViewModel>(t))
-			.ToArrayAsync();
-
-		foreach (TicketUserAllViewModel ticket in tickets)
-		{
-			Car ticketCar = await context.Cars
-				.FirstAsync(c => c.Id == ticket.CarId);
-
-			ticket.Car = AutoMapperConfig.MapperInstance.Map<CarAllViewModel>(ticketCar);
-		}
+		IEnumerable<TicketUserAllViewModel> tickets = context.Tickets
+			.Where(t => t.OwnerId == userId)
+			.Include(t => t.Car)
+			.Include(t => t.AssignedMechanic)
+			.ThenInclude(m => m!.User)
+			.Select(t => AutoMapperConfig.MapperInstance.Map<TicketUserAllViewModel>(t));
 
 		return tickets;
 	}
@@ -91,5 +85,23 @@ public class TicketService : ITicketService
 
 			await context.SaveChangesAsync();
 		}
+	}
+
+	public async Task<MechanicInfoViewModel> GetMechanicInfoAsync(Guid mechanicId)
+	{
+		Mechanic? mechanic = await context.Mechanics
+			.Include(m => m.User)
+			.Include(m => m.Tickets)
+			.FirstOrDefaultAsync(m => m.Id == mechanicId);
+
+		MechanicInfoViewModel mechanicModel = new();
+
+		if (mechanic != null)
+		{
+			mechanicModel =
+			AutoMapperConfig.MapperInstance.Map<MechanicInfoViewModel>(mechanic);
+		}
+
+		return mechanicModel;
 	}
 }

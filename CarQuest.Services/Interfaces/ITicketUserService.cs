@@ -1,13 +1,10 @@
 ﻿namespace CarQuest.Services.Interfaces;
 
-using CarQuest.Web.ViewModels.TicketUser;
+using Web.ViewModels.TicketUser;
 
-using Web.ViewModels.Car;
-using Web.ViewModels.Ticket;
-
-public interface ITicketService
+public interface ITicketUserService
 {
-	public Task<IEnumerable<TicketUserAllViewModel>> GetAllUserTicketsAsync(Guid userId);
+	public IEnumerable<TicketUserAllViewModel> GetAllUserTicketsAsync(Guid userId);
 
 	public Task AddUserTicketAsync(TicketUserAddViewModel ticketUserModel, Guid userId);
 
@@ -16,4 +13,6 @@ public interface ITicketService
 	public Task<TicketUserUpdateViewModel> GetTicketModelByIdAsync (Guid ticketId);
 
 	public Task UpdateTicketAsync(TicketUserUpdateViewModel ticketUserModel);
+
+	public Task<MechanicInfoViewModel> GetMechanicInfoAsync(Guid userId);
 }

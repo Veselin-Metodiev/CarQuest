@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 using ViewModels.Car;
+using static Common.NotificationMessagesConstants;
 
-using Car = Data.Models.Car;
 
 [Authorize]
 public class CarController : BaseController
@@ -27,6 +27,7 @@ public class CarController : BaseController
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to access cars";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -40,6 +41,7 @@ public class CarController : BaseController
 	{
 		if (await mechanicService.MechanicExistsByUserIdAsync(GetUserId()))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to add cars";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -53,6 +55,7 @@ public class CarController : BaseController
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to add cars";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -72,6 +75,7 @@ public class CarController : BaseController
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to remove cars";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -87,6 +91,7 @@ public class CarController : BaseController
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to edit cars";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -102,6 +107,7 @@ public class CarController : BaseController
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to edit cars";
 			return RedirectToAction("Index", "Home");
 		}
 

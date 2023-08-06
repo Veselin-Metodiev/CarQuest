@@ -12,5 +12,7 @@ public interface IMechanicService
 
 	Task RemoveMechanicCarsAsync(Guid userId);
 
-	Task<Mechanic?> GetMechanicByUserIdAsync(Guid userId);
+	Task<bool> MechanicExistsByPhoneNumberAsync(string phonenumber);
+
+	bool MechanicHasTicketsAsync(Guid userId);
 }

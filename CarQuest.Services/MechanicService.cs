@@ -38,8 +38,11 @@ public class MechanicService : IMechanicService
 		}
 	}
 
-	public async Task<Mechanic?> GetMechanicByUserIdAsync(Guid userId) =>
-		await context.Mechanics.FirstOrDefaultAsync(m => m.UserId == userId);
+	public async Task<bool> MechanicExistsByPhoneNumberAsync(string phonenumber) =>
+		 await context.Mechanics.AnyAsync(m => m.PhoneNumber == phonenumber);
+
+	public bool MechanicHasTicketsAsync(Guid userId) =>
+		context.Users.Include(u => u.Tickets).First(u => u.Id == userId).Tickets.Any();
 
 	public async Task<bool> MechanicExistsByUserIdAsync(Guid userId) =>
 		await context.Mechanics.AnyAsync(m => m.UserId == userId);

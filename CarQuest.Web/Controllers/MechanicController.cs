@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 using ViewModels.Mechanic;
+using static Common.NotificationMessagesConstants;
 
 [Authorize]
 public class MechanicController : BaseController
@@ -22,6 +23,7 @@ public class MechanicController : BaseController
 	{
 		if (await mechanicService.MechanicExistsByUserIdAsync(GetUserId()))
 		{
+			TempData["ErrorMessage"] = "You are already a mechanic";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -31,8 +33,23 @@ public class MechanicController : BaseController
 	[HttpPost]
 	public async Task<IActionResult> Become(MechanicBecomeViewModel mechanicViewModel)
 	{
-		if (await mechanicService.MechanicExistsByUserIdAsync(GetUserId()))
+		Guid userId = GetUserId();
+
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
+			TempData[ErrorMessage] = "You are already a mehcanic";
+			return RedirectToAction("Index", "Home");
+		}
+
+		if (await mechanicService.MechanicExistsByPhoneNumberAsync(mechanicViewModel.PhoneNumber))
+		{
+			TempData[ErrorMessage] = "Mechanic with the provided phone number already exists!";
+			return RedirectToAction("Index", "Home");
+		}
+
+		if (mechanicService.MechanicHasTicketsAsync(userId))
+		{
+			TempData[ErrorMessage] = "You must not have any active tickets to be a mechanic";
 			return RedirectToAction("Index", "Home");
 		}
 
