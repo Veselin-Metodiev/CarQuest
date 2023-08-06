@@ -14,7 +14,5 @@ public interface ICarService
 
     Task UpdateUserCarAsync(Guid carId, CarUpdateViewModel car);
 
-    Task<Car> GetUserCarAsync(Guid carId);
-
     Task<CarUpdateViewModel> GetCarAddAndUpdateViewModelAsync(Guid carId);
 }

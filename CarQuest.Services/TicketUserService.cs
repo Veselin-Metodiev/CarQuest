@@ -1,6 +1,6 @@
 ﻿namespace CarQuest.Services;
 
-using Web.ViewModels.TicketUser;
+using System.Collections.Generic;
 
 using Data;
 using Data.Models;
@@ -11,8 +11,7 @@ using Mapping;
 
 using Microsoft.EntityFrameworkCore;
 
-using Web.ViewModels.Car;
-using System.Collections.Generic;
+using Web.ViewModels.TicketUser;
 
 public class TicketUserService : ITicketUserService
 {

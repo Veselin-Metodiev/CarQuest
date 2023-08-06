@@ -1,7 +1,5 @@
 ﻿namespace CarQuest.Services.Interfaces;
 
-using CarQuest.Data.Models;
-
 using Web.ViewModels.Mechanic;
 
 public interface IMechanicService

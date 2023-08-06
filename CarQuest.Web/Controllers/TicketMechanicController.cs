@@ -37,14 +37,13 @@ public class TicketMechanicController : BaseController
 		{
 			IEnumerable<TicketMechanicAllViewModel> ticketModel =
 				ticketMechanicService.GetAllTicketsAsync();
+			return View(ticketModel);
 		}
 		catch (Exception e)
 		{
 			TempData[ErrorMessage] = e.Message;
 			return RedirectToAction("Index", "Home");
 		}
-
-		return View(ticketModel);
 	}
 
 	public async Task<IActionResult> Take(Guid id)

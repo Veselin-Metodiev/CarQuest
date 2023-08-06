@@ -1,7 +1,5 @@
 ﻿namespace CarQuest.Services;
 
-using Web.ViewModels.Car;
-
 using Data;
 using Data.Models;
 using Data.Models.Enums;
@@ -12,6 +10,7 @@ using Mapping;
 
 using Microsoft.EntityFrameworkCore;
 
+using Web.ViewModels.Car;
 using Web.ViewModels.TicketMechanic;
 
 public class TicketMechanicService : ITicketMechanicService
@@ -57,7 +56,6 @@ public class TicketMechanicService : ITicketMechanicService
 			.Include(t => t.Owner)
 			.Select(t => AutoMapperConfig.MapperInstance.Map<TicketMechanicAllViewModel>(t))
 			.ToArrayAsync();
-
 
 		return tickets;
 	}

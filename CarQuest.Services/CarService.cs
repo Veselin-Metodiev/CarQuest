@@ -4,7 +4,9 @@ using Data;
 using Data.Models;
 
 using Interfaces;
+
 using Mapping;
+
 using Microsoft.EntityFrameworkCore;
 
 using Web.ViewModels.Car;
@@ -58,7 +60,7 @@ public class CarService : ICarService
         await context.SaveChangesAsync();
     }
 
-    public async Task<Car> GetUserCarAsync(Guid carId)
+    private async Task<Car> GetUserCarAsync(Guid carId)
     {
 	    Car car = await context.Cars
 		    .FirstAsync(c => c.Id == carId);
