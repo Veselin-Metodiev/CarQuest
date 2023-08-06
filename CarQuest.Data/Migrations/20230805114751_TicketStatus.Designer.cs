@@ -4,6 +4,7 @@ using CarQuest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarQuest.Data.Migrations
 {
     [DbContext(typeof(CarQuestDbContext))]
-    partial class CarQuestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230805114751_TicketStatus")]
+    partial class TicketStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,7 +133,7 @@ namespace CarQuest.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Cars", (string)null);
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("CarQuest.Data.Models.Mechanic", b =>
@@ -157,7 +159,7 @@ namespace CarQuest.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Mechanics", (string)null);
+                    b.ToTable("Mechanics");
                 });
 
             modelBuilder.Entity("CarQuest.Data.Models.Ticket", b =>
@@ -196,7 +198,7 @@ namespace CarQuest.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>

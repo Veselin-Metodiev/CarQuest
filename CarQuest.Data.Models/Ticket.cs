@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Enums;
 using static Common.EntityValidationConstants.Ticket;
 
 public class Ticket
@@ -34,4 +34,6 @@ public class Ticket
 	public Guid? AssignedMechanicId { get; set; }
 
 	public virtual Mechanic? AssignedMechanic { get; set; }
+
+	public Status Status { get; set; }
 }
