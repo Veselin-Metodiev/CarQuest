@@ -10,6 +10,8 @@ public static class EntityValidationConstants
 
         public const int YearMaxLength = 4;
 
+        public const int CarImageUrlMaxLength = 300;
+
         public const int MileageMaxLength = 7;
     }
 
@@ -21,7 +23,8 @@ public static class EntityValidationConstants
 	    public const int ModelMaxLength = 100;
 	    public const int ModelMinLength = 1;
 
-	    public const int YearMinValue = 1900;
+	    public const int CarImageUrlMaxLength = 300;
+	    public const int CarImageUrlMinLength = 10;
 
 	    public const long MileageMaxValue = 10000000;
 	    public const int MileageMinValue = 1;

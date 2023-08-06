@@ -103,6 +103,16 @@ public class TicketMechanicService : ITicketMechanicService
 		return true;
 	}
 
+	public async Task<CarDetailsViewModel> GetCarDetailsAsync(Guid carId)
+	{
+		Car car = await context.Cars
+			.FirstAsync(c => c.Id == carId);
+
+		CarDetailsViewModel carModel = 
+			AutoMapperConfig.MapperInstance.Map<CarDetailsViewModel>(car);
+
+		return carModel;
+	}
 
 	private async Task<Guid> GetMechanicIdByUserId(Guid userId)
 	{

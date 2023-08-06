@@ -14,26 +14,29 @@ else
 {
 	<table class="table">
 		<thead>
-		<tr>
-			<th>Title</th>
-			<th>Description</th>
-			<th>Car</th>
-			<th>Owner</th>
-		</tr>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Car</th>
+				<th>Owner</th>
+			</tr>
 		</thead>
 		<tbody>
-		@foreach (TicketMechanicAllViewModel ticket in Model)
-		{
-			<tr>
-				<td>@ticket.Title</td>
-				<td>@ticket.Description</td>
-				<td>@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</td>
-				<td>@ticket.OwnerFirstName @ticket.OwnerLastName</td>
-				<td>
-					<a asp-controller="TicketMechanic" asp-action="Take" asp-route-id="@ticket.Id">Take</a>
-				</td>
-			</tr>
-		}
+			@foreach (TicketMechanicAllViewModel ticket in Model)
+			{
+				<tr>
+					<td>@ticket.Title</td>
+					<td>@ticket.Description</td>
+					<td>
+						<a asp-controller="TicketMechanic" asp-action="Details" asp-route-id="@ticket.CarId">@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</a>
+					</td>
+					<td>@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</td>
+					<td>@ticket.OwnerFirstName @ticket.OwnerLastName</td>
+					<td>
+						<a asp-controller="TicketMechanic" asp-action="Take" asp-route-id="@ticket.Id">Take</a>
+					</td>
+				</tr>
+			}
 		</tbody>
 	</table>
 }

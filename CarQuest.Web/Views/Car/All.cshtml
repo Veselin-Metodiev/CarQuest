@@ -1,40 +1,32 @@
 ﻿@using CarQuest.Web.ViewModels.Car
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IEnumerable<CarAllViewModel>
 @{
-	ViewData["Title"] = "Your Cars";
+	ViewData["Title"] = "All Cars";
+	Layout = "_Layout"; // Assuming you have a shared layout page
 }
 
 <h1>@ViewData["Title"]</h1>
 @if (!Model.Any())
 {
-	<p>No cars added yet.</p>
+	<p>No cars found.</p>
 }
 else
 {
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Brand</th>
-				<th>Model</th>
-				<th>Year</th>
-				<th>Mileage</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (CarAllViewModel car in Model)
-			{
-				<tr>
-					<td>@car.Brand</td>
-					<td>@car.Model</td>
-					<td>@car.Year</td>
-					<td>@car.Mileage</td>
-					<td>
-						<a asp-controller="Car" asp-action="Edit" asp-route-id="@car.Id">Edit</a> |
-						<a asp-controller="Car" asp-action="Remove" asp-route-id="@car.Id">Delete</a>
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
+	<div class="row">
+		@foreach (CarAllViewModel car in Model)
+		{
+			<div class="col-md-4 mb-3">
+				<div class="card">
+					<img src="@car.ImageUrl" class="card-img-top" alt="@car.Brand @car.Model">
+					<div class="card-body">
+						<h5 class="card-title">@car.Brand @car.Model</h5>
+						<p class="card-text">
+							Year: @car.Year<br />
+							Mileage: @car.Mileage
+						</p>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
 }

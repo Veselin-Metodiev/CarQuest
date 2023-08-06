@@ -3,10 +3,8 @@
 using Data.Models;
 using Services.Mapping;
 
-public class CarAllViewModel : IMapFrom<Car>
+public class CarDetailsViewModel : IMapFrom<Car>
 {
-	public Guid Id { get; set; }
-
 	public string Brand { get; set; } = null!;
 
 	public string Model { get; set; } = null!;

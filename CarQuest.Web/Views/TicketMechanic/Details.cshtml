@@ -1,0 +1,21 @@
+﻿@using CarQuest.Web.ViewModels.Car
+@model CarDetailsViewModel
+@{
+	ViewData["Title"] = "All Cars";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+	<div class="col-md-4 mb-3">
+		<div class="card">
+			<img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Brand @Model.Model">
+			<div class="card-body">
+				<h5 class="card-title">@Model.Brand @Model.Model</h5>
+				<p class="card-text">
+					Year: @Model.Year<br />
+					Mileage: @Model.Mileage
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

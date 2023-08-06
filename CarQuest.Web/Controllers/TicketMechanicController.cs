@@ -1,13 +1,16 @@
 ﻿namespace CarQuest.Web.Controllers;
 
 using Data.Models.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using ViewModels.Car;
 using ViewModels.TicketMechanic;
 
 using static Common.NotificationMessagesConstants;
 
 
+[Authorize]
 public class TicketMechanicController : BaseController
 {
 	private readonly ITicketMechanicService ticketMechanicService;
@@ -114,5 +117,20 @@ public class TicketMechanicController : BaseController
 		await ticketMechanicService.CompleteTicketAsync(id);
 
 		return RedirectToAction("Completed");
+	}
+
+	public async Task<IActionResult> Details(Guid id)
+	{
+		Guid userId = GetUserId();
+
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
+		{
+			TempData[ErrorMessage] = "You must be a mehcanic to see car details";
+			return RedirectToAction("Index", "Home");
+		}
+
+		CarDetailsViewModel carModel = await ticketMechanicService.GetCarDetailsAsync(id);
+
+		return View(carModel);
 	}
 }

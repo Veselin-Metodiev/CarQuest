@@ -34,6 +34,10 @@ public class Car
     public string Mileage { get; set; } = null!;
 
     [Required]
+    [StringLength(CarImageUrlMaxLength)]
+    public string ImageUrl { get; set; } = null!;
+
+    [Required]
     [ForeignKey(nameof(Owner))]
     public Guid OwnerId { get; set; }
 

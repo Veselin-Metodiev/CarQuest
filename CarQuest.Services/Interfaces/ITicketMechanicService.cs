@@ -1,6 +1,7 @@
 ﻿namespace CarQuest.Services.Interfaces;
 
 using Data.Models.Enums;
+using Web.ViewModels.Car;
 using Web.ViewModels.TicketMechanic;
 
 public interface ITicketMechanicService
@@ -16,4 +17,6 @@ public interface ITicketMechanicService
 	public Task CompleteTicketAsync(Guid ticketId);
 
 	public Task<bool> TicketIsAlreadyTaken(Guid ticketId, Guid userId);
+
+	public Task<CarDetailsViewModel> GetCarDetailsAsync(Guid carId);
 }
