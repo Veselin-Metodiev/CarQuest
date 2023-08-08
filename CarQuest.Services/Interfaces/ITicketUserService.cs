@@ -15,4 +15,6 @@ public interface ITicketUserService
 	public Task UpdateTicketAsync(TicketUserUpdateViewModel ticketUserModel);
 
 	public Task<MechanicInfoViewModel> GetMechanicInfoAsync(Guid userId);
+
+	public Task<bool> IsUserOwner(Guid userId, Guid ticketId);
 }

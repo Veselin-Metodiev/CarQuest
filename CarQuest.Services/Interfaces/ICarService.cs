@@ -13,4 +13,6 @@ public interface ICarService
     Task UpdateUserCarAsync(Guid carId, CarUpdateViewModel car);
 
     Task<CarUpdateViewModel> GetCarAddAndUpdateViewModelAsync(Guid carId);
+
+    Task<bool> isCarOwner(Guid userId, Guid carId);
 }

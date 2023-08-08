@@ -1,5 +1,6 @@
 ﻿namespace CarQuest.Web.Controllers;
 
+using CarQuest.Web.Infrastructure.Extensions;
 using CarQuest.Web.ViewModels.TicketUser;
 
 using Microsoft.AspNetCore.Authorization;
@@ -31,7 +32,8 @@ public class TicketUserController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to see tickets";
 			return RedirectToAction("Index", "Home");
@@ -55,7 +57,8 @@ public class TicketUserController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to add tickets";
 			return RedirectToAction("Index", "Home");
@@ -82,7 +85,8 @@ public class TicketUserController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to add tickets";
 			return RedirectToAction("Index", "Home");
@@ -109,19 +113,26 @@ public class TicketUserController : BaseController
 		return RedirectToAction("All");
 	}
 
-	public async Task<IActionResult> Remove(Guid Id)
+	public async Task<IActionResult> Remove(Guid id)
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to remove tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
+		if (!await ticketUserService.IsUserOwner(userId, id))
+		{
+			TempData[ErrorMessage] = "You must be a the owner to remove tickets";
+			return RedirectToAction("Index", "Home");
+		}
+
 		try
 		{
-			await ticketUserService.RemoveUserTicketAsync(Id);
+			await ticketUserService.RemoveUserTicketAsync(id);
 		}
 		catch (Exception e)
 		{
@@ -133,20 +144,27 @@ public class TicketUserController : BaseController
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> Edit(Guid Id)
+	public async Task<IActionResult> Edit(Guid id)
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to edit tickets";
+			return RedirectToAction("Index", "Home");
+		}
+
+		if (!await ticketUserService.IsUserOwner(userId, id))
+		{
+			TempData[ErrorMessage] = "You must be a the owner to edit tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
 		try
 		{
 			TicketUserUpdateViewModel ticketUserModel =
-						await ticketUserService.GetTicketModelByIdAsync(Id);
+				await ticketUserService.GetTicketModelByIdAsync(id);
 
 			IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
 			ticketUserModel.Cars = cars;
@@ -165,9 +183,16 @@ public class TicketUserController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to edit tickets";
+			return RedirectToAction("Index", "Home");
+		}
+
+		if (!await ticketUserService.IsUserOwner(userId, ticketUserModel.Id))
+		{
+			TempData[ErrorMessage] = "You must be a the owner to edit tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -193,7 +218,8 @@ public class TicketUserController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to see mehcanic info";
 			return RedirectToAction("Index", "Home");
@@ -202,7 +228,7 @@ public class TicketUserController : BaseController
 		try
 		{
 			MechanicInfoViewModel mechanicModel =
-						await ticketUserService.GetMechanicInfoAsync(id);
+				await ticketUserService.GetMechanicInfoAsync(id);
 
 			return View(mechanicModel);
 		}

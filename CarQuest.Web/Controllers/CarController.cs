@@ -1,5 +1,6 @@
 ﻿namespace CarQuest.Web.Controllers;
 
+using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +27,8 @@ public class CarController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to access cars";
 			return RedirectToAction("Index", "Home");
@@ -48,7 +50,8 @@ public class CarController : BaseController
 	[HttpGet]
 	public async Task<IActionResult> Add()
 	{
-		if (await mechanicService.MechanicExistsByUserIdAsync(GetUserId()))
+		if (await mechanicService.MechanicExistsByUserIdAsync(GetUserId()) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to add cars";
 			return RedirectToAction("Index", "Home");
@@ -62,7 +65,8 @@ public class CarController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to add cars";
 			return RedirectToAction("Index", "Home");
@@ -86,19 +90,26 @@ public class CarController : BaseController
 		return RedirectToAction("All");
 	}
 
-	public async Task<IActionResult> Remove(Guid Id)
+	public async Task<IActionResult> Remove(Guid id)
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to remove cars";
 			return RedirectToAction("Index", "Home");
 		}
 
+		if (!await carService.isCarOwner(userId, id))
+		{
+			TempData[ErrorMessage] = "You must not be a the owner to remove this car";
+			return RedirectToAction("Index", "Home");
+		}
+
 		try
 		{
-			await carService.DeleteUserCarAsync(Id);
+			await carService.DeleteUserCarAsync(id);
 		}
 		catch (Exception e)
 		{
@@ -111,19 +122,26 @@ public class CarController : BaseController
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> Edit(Guid Id)
+	public async Task<IActionResult> Edit(Guid id)
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to edit cars";
 			return RedirectToAction("Index", "Home");
 		}
 
+		if (!await carService.isCarOwner(userId, id))
+		{
+			TempData[ErrorMessage] = "You must not be a the owner to edit this car";
+			return RedirectToAction("Index", "Home");
+		}
+
 		try
 		{
-			CarUpdateViewModel car = await carService.GetCarAddAndUpdateViewModelAsync(Id);
+			CarUpdateViewModel car = await carService.GetCarAddAndUpdateViewModelAsync(id);
 			return View(car);
 		}
 		catch (Exception e)
@@ -134,13 +152,20 @@ public class CarController : BaseController
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Edit(Guid Id, CarUpdateViewModel car)
+	public async Task<IActionResult> Edit(Guid id, CarUpdateViewModel car)
 	{
 		Guid userId = GetUserId();
 
-		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a mehcanic to edit cars";
+			return RedirectToAction("Index", "Home");
+		}
+
+		if (!await carService.isCarOwner(userId, id))
+		{
+			TempData[ErrorMessage] = "You must not be a the owner to edit this car";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -151,14 +176,13 @@ public class CarController : BaseController
 
 		try
 		{
-			await carService.UpdateUserCarAsync(Id, car);
+			await carService.UpdateUserCarAsync(id, car);
 		}
 		catch (Exception e)
 		{
 			TempData[ErrorMessage] = e.Message;
 			return RedirectToAction("Index", "Home");
 		}
-
 
 		return RedirectToAction("All");
 	}

@@ -1,5 +1,7 @@
 ﻿namespace CarQuest.Web.Controllers;
 
+using CarQuest.Web.Infrastructure.Extensions;
+
 using Data.Models.Enums;
 
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +29,8 @@ public class TicketMechanicController : BaseController
 
 	public async Task<IActionResult> AllUser()
 	{
-		if (!await mechanicService.MechanicExistsByUserIdAsync(GetUserId()))
+		if (!await mechanicService.MechanicExistsByUserIdAsync(GetUserId()) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to see users tickets";
 			return RedirectToAction("Index", "Home");
@@ -50,7 +53,8 @@ public class TicketMechanicController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to take users tickets";
 			return RedirectToAction("Index", "Home");
@@ -79,7 +83,8 @@ public class TicketMechanicController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to see tickets";
 			return RedirectToAction("Index", "Home");
@@ -102,7 +107,8 @@ public class TicketMechanicController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to complete tickets";
 			return RedirectToAction("Index", "Home");
@@ -125,9 +131,16 @@ public class TicketMechanicController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to resign tickets";
+			return RedirectToAction("Index", "Home");
+		}
+
+		if (!ticketMechanicService.IsMechanicAssigned(userId, id))
+		{
+			TempData[ErrorMessage] = "You must be the assigned mechanic to resign tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -148,9 +161,16 @@ public class TicketMechanicController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to resign tickets";
+			return RedirectToAction("Index", "Home");
+		}
+
+		if (!ticketMechanicService.IsMechanicAssigned(userId, id))
+		{
+			TempData[ErrorMessage] = "You must be the assigned mechanic to complete tickets";
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -171,7 +191,8 @@ public class TicketMechanicController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to see car details";
 			return RedirectToAction("Index", "Home");

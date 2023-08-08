@@ -19,4 +19,6 @@ public interface ITicketMechanicService
 	public Task<bool> TicketIsAlreadyTaken(Guid ticketId, Guid userId);
 
 	public Task<CarDetailsViewModel> GetCarDetailsAsync(Guid carId);
+
+	public bool IsMechanicAssigned(Guid userId, Guid ticketId);
 }

@@ -77,4 +77,17 @@ public class CarService : ICarService
 
         return carViewModel;
     }
+
+    public async Task<bool> isCarOwner(Guid userId, Guid carId)
+    {
+	    Car? car = await context.Cars
+		    .FirstOrDefaultAsync(c => c.Id == carId);
+
+	    if (car != null)
+	    {
+		    return car.OwnerId == userId;
+	    }
+
+        return false;
+    }
 }

@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using CarQuest.Data.Models
+@using CarQuest.Web.Infrastructure.Extensions
 @inject IMechanicService MechanicService
 @inject UserManager<ApplicationUser> UserManager
 @{
@@ -42,7 +43,7 @@
 						</li>
 						@if (User.Identity?.IsAuthenticated ?? false)
 						{
-							@if (UserIsMechanic)
+							@if (UserIsMechanic || User.IsAdmin())
 							{
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="TicketMechanic" asp-action="AllUser">All Tickets</a>
@@ -54,7 +55,8 @@
 									<a class="nav-link text-dark" asp-area="" asp-controller="TicketMechanic" asp-action="Completed">Completed Tickets</a>
 								</li>
 							}
-							else
+
+							@if (!UserIsMechanic || User.IsAdmin())
 							{
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="All">Your Cars</a>

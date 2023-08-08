@@ -103,4 +103,17 @@ public class TicketUserService : ITicketUserService
 
 		return mechanicModel;
 	}
+
+	public async Task<bool> IsUserOwner(Guid userId, Guid ticketId)
+	{
+		Ticket? ticket = await context.Tickets
+			.FirstOrDefaultAsync(t => t.Id == ticketId);
+
+		if (ticket != null)
+		{
+			return ticket.OwnerId == userId;
+		}
+
+		return false;
+	}
 }

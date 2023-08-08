@@ -95,7 +95,7 @@ public class TicketMechanicService : ITicketMechanicService
 		if (ticket != null)
 		{
 			return ticket.AssignedMechanicId == mechanicId &&
-			       ticket.Status == Status.Taken;
+				   ticket.Status == Status.Taken;
 		}
 
 		return true;
@@ -106,7 +106,7 @@ public class TicketMechanicService : ITicketMechanicService
 		Car car = await context.Cars
 			.FirstAsync(c => c.Id == carId);
 
-		CarDetailsViewModel carModel = 
+		CarDetailsViewModel carModel =
 			AutoMapperConfig.MapperInstance.Map<CarDetailsViewModel>(car);
 
 		return carModel;
@@ -127,4 +127,11 @@ public class TicketMechanicService : ITicketMechanicService
 
 		return ticket ?? null;
 	}
+
+	public bool IsMechanicAssigned(Guid userId, Guid ticketId) =>
+		context.Mechanics
+			.Include(m => m.Tickets)
+			.FirstAsync(m => m.UserId == userId)
+			.Result.Tickets
+			.Any(t => t.Id == ticketId);
 }

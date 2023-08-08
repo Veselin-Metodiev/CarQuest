@@ -7,6 +7,7 @@ using CarQuest.Services.Interfaces;
 using CarQuest.Services.Mapping;
 using CarQuest.Web.Infrastructure.Extensions;
 using CarQuest.Web.ViewModels.Home;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -74,7 +75,10 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.SeedAdministration(DevelopmentAdminEmail);
+if (app.Environment.IsDevelopment())
+{
+	app.SeedAdministration(DevelopmentAdminEmail);
+}
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
