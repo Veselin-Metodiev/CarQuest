@@ -5,10 +5,13 @@ using CarQuest.Data.Models;
 using CarQuest.Services;
 using CarQuest.Services.Interfaces;
 using CarQuest.Services.Mapping;
+using CarQuest.Web.Infrastructure.Extensions;
 using CarQuest.Web.ViewModels.Home;
-
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+using static CarQuest.Common.GeneralApplicationConstants;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +34,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 		options.Password.RequiredLength =
 			builder.Configuration.GetValue<int>("Identity:SignId:RequiredLength");
 	})
+	.AddRoles<IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<CarQuestDbContext>();
 
 builder.Services
@@ -69,6 +73,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.SeedAdministration(DevelopmentAdminEmail);
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
