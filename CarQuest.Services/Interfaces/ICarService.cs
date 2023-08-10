@@ -4,7 +4,7 @@ using Web.ViewModels.Car;
 
 public interface ICarService
 {
-    Task<IEnumerable<CarAllViewModel>> AllUserCarsAsync(Guid userId);
+    Task<IEnumerable<CarAllViewModel>> MineCarsAsync(Guid userId);
 
     Task AddUserCarAsync(Guid userId, CarAddViewModel car);
 
@@ -15,4 +15,6 @@ public interface ICarService
     Task<CarUpdateViewModel> GetCarAddAndUpdateViewModelAsync(Guid carId);
 
     Task<bool> isCarOwner(Guid userId, Guid carId);
+
+    Task<IEnumerable<CarAllViewModel>> AllCarsAsync();
 }

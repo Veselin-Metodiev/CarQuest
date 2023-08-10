@@ -27,7 +27,7 @@ public class TicketMechanicController : BaseController
 		this.mechanicService = mechanicService;
 	}
 
-	public async Task<IActionResult> AllUser()
+	public async Task<IActionResult> All()
 	{
 		if (!await mechanicService.MechanicExistsByUserIdAsync(GetUserId()) &&
 		    !User.IsAdmin())
@@ -63,7 +63,7 @@ public class TicketMechanicController : BaseController
 		if (await ticketMechanicService.TicketIsAlreadyTaken(id, userId))
 		{
 			TempData[ErrorMessage] = "Ticket is already taken";
-			return RedirectToAction("AllUser");
+			return RedirectToAction("All");
 		}
 
 		try
@@ -76,10 +76,10 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		return RedirectToAction("AllMechanic");
+		return RedirectToAction("Mine");
 	}
 
-	public async Task<IActionResult> AllMechanic()
+	public async Task<IActionResult> Mine()
 	{
 		Guid userId = GetUserId();
 
@@ -107,8 +107,7 @@ public class TicketMechanicController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
-		    !User.IsAdmin())
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to complete tickets";
 			return RedirectToAction("Index", "Home");
@@ -131,8 +130,7 @@ public class TicketMechanicController : BaseController
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
-		    !User.IsAdmin())
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to resign tickets";
 			return RedirectToAction("Index", "Home");
@@ -154,15 +152,14 @@ public class TicketMechanicController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		return RedirectToAction("AllMechanic");
+		return RedirectToAction("Mine");
 	}
 
 	public async Task<IActionResult> Complete(Guid id)
 	{
 		Guid userId = GetUserId();
 
-		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
-		    !User.IsAdmin())
+		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
 			TempData[ErrorMessage] = "You must be a mehcanic to resign tickets";
 			return RedirectToAction("Index", "Home");

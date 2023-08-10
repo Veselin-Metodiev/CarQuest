@@ -5,7 +5,7 @@ using Data.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-
+using Middlewares;
 using static Common.GeneralApplicationConstants;
 
 public static class ApplicationBuilderExtensions
@@ -41,5 +41,10 @@ public static class ApplicationBuilderExtensions
 			.GetResult();
 
 		return app;
+	}
+
+	public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+	{
+		return app.UseMiddleware<OnlineUserMiddleware>();
 	}
 }

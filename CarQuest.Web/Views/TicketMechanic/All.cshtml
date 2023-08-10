@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using CarQuest.Web.ViewModels.TicketMechanic
+@using CarQuest.Web.Infrastructure.Extensions
 @model IEnumerable<CarQuest.Web.ViewModels.TicketMechanic.TicketMechanicAllViewModel>
 @{
 	ViewData["Title"] = "All Tickets";
@@ -33,7 +34,10 @@ else
 					<td>@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</td>
 					<td>@ticket.OwnerFirstName @ticket.OwnerLastName</td>
 					<td>
-						<a asp-controller="TicketMechanic" asp-action="Take" asp-route-id="@ticket.Id">Take</a>
+						@if (!User.IsAdmin())
+						{
+							<a asp-controller="TicketMechanic" asp-action="Take" asp-route-id="@ticket.Id">Take</a>
+						}
 					</td>
 				</tr>
 			}

@@ -20,7 +20,7 @@ public class CarService : ICarService
         this.context = context;
     }
 
-    public async Task<IEnumerable<CarAllViewModel>> AllUserCarsAsync(Guid userId)
+    public async Task<IEnumerable<CarAllViewModel>> MineCarsAsync(Guid userId)
     {
         IEnumerable<CarAllViewModel> cars = await context.Cars
             .Where(c => c.Owner.Id == userId)
@@ -42,9 +42,12 @@ public class CarService : ICarService
     public async Task DeleteUserCarAsync(Guid carId)
     {
 	    Car car = await context.Cars
+		    .Include(c => c.Tickets)
 		    .FirstAsync(c => c.Id == carId);
 
-	    context.Remove(car);
+	    context.Tickets.RemoveRange(car.Tickets);
+
+	    context.Cars.Remove(car);
         await context.SaveChangesAsync();
     }
 
@@ -90,4 +93,9 @@ public class CarService : ICarService
 
         return false;
     }
+
+    public async Task<IEnumerable<CarAllViewModel>> AllCarsAsync() =>
+	    await context.Cars
+		    .Select(c => AutoMapperConfig.MapperInstance.Map<CarAllViewModel>(c))
+		    .ToArrayAsync();
 }

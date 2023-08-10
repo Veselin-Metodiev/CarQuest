@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using ViewModels.Home;
 
+using static Common.GeneralApplicationConstants;
+
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -17,6 +19,11 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+	    if (User.IsInRole(AdminRoleName))
+	    {
+		    return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+	    }
+
         return View();
     }
 

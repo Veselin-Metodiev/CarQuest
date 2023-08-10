@@ -28,7 +28,7 @@ public class TicketUserController : BaseController
 		this.carService = carService;
 	}
 
-	public async Task<IActionResult> All()
+	public async Task<IActionResult> Mine()
 	{
 		Guid userId = GetUserId();
 
@@ -68,7 +68,7 @@ public class TicketUserController : BaseController
 
 		try
 		{
-			IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
+			IEnumerable<CarAllViewModel> cars = await carService.MineCarsAsync(userId);
 			ticketUser.Cars = cars;
 
 			return View(ticketUser);
@@ -94,7 +94,7 @@ public class TicketUserController : BaseController
 
 		if (!ModelState.IsValid)
 		{
-			IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
+			IEnumerable<CarAllViewModel> cars = await carService.MineCarsAsync(userId);
 			ticketUserView.Cars = cars;
 
 			return View(ticketUserView);
@@ -110,7 +110,7 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		return RedirectToAction("All");
+		return RedirectToAction("Mine");
 	}
 
 	public async Task<IActionResult> Remove(Guid id)
@@ -124,7 +124,8 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		if (!await ticketUserService.IsUserOwner(userId, id))
+		if (!await ticketUserService.IsUserOwner(userId, id) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a the owner to remove tickets";
 			return RedirectToAction("Index", "Home");
@@ -140,7 +141,7 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		return RedirectToAction("All");
+		return RedirectToAction("Mine");
 	}
 
 	[HttpGet]
@@ -155,7 +156,8 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		if (!await ticketUserService.IsUserOwner(userId, id))
+		if (!await ticketUserService.IsUserOwner(userId, id) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a the owner to edit tickets";
 			return RedirectToAction("Index", "Home");
@@ -166,7 +168,7 @@ public class TicketUserController : BaseController
 			TicketUserUpdateViewModel ticketUserModel =
 				await ticketUserService.GetTicketModelByIdAsync(id);
 
-			IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
+			IEnumerable<CarAllViewModel> cars = await carService.MineCarsAsync(userId);
 			ticketUserModel.Cars = cars;
 
 			return View(ticketUserModel);
@@ -190,7 +192,8 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		if (!await ticketUserService.IsUserOwner(userId, ticketUserModel.Id))
+		if (!await ticketUserService.IsUserOwner(userId, ticketUserModel.Id) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must be a the owner to edit tickets";
 			return RedirectToAction("Index", "Home");
@@ -211,7 +214,7 @@ public class TicketUserController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		return RedirectToAction("All");
+		return RedirectToAction("Mine");
 	}
 
 	public async Task<IActionResult> MechanicInfo(Guid id)

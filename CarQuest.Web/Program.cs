@@ -38,6 +38,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 	.AddRoles<IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<CarQuestDbContext>();
 
+builder.Services.AddMemoryCache();
+
 builder.Services
 	.AddControllersWithViews()
 	.AddMvcOptions(options =>
@@ -49,6 +51,7 @@ builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<IMechanicService, MechanicService>();
 builder.Services.AddScoped<ITicketUserService, TicketUserService>();
 builder.Services.AddScoped<ITicketMechanicService, TicketMechanicService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 WebApplication app = builder.Build();
 
@@ -75,12 +78,21 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.EnableOnlineUsersCheck();
+
 if (app.Environment.IsDevelopment())
 {
 	app.SeedAdministration(DevelopmentAdminEmail);
 }
 
-app.MapDefaultControllerRoute();
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllerRoute(
+		name: "areas",
+		pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+	);
+	endpoints.MapDefaultControllerRoute();
+	endpoints.MapRazorPages();
+});
 
 app.Run();

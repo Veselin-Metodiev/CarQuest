@@ -1,0 +1,36 @@
+﻿@using CarQuest.Web.ViewModels.Car
+@model IEnumerable<CarAllViewModel>
+@{
+	ViewData["Title"] = "All Cars";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (!Model.Any())
+{
+	<p>No cars found.</p>
+}
+else
+{
+	<div class="row">
+		@foreach (CarAllViewModel car in Model)
+		{
+			<div class="col-md-4 mb-3">
+				<div class="card">
+					<img src="@car.ImageUrl" class="card-img-top" alt="@car.Brand @car.Model">
+					<div class="card-body">
+						<h5 class="card-title">@car.Brand @car.Model</h5>
+						<p class="card-text">
+							Year: @car.Year<br />
+							Mileage: @car.Mileage
+						</p>
+						<a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@car.Id"
+							   class="btn btn-warning">Edit</a>
+						<a asp-area="" asp-controller="Car" asp-action="Remove" asp-route-id="@car.Id"
+						   class="btn btn-danger">Delete</a>
+					</div>
+					
+				</div>
+			</div>
+		}
+	</div>
+}

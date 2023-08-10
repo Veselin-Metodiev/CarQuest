@@ -23,7 +23,7 @@ public class CarController : BaseController
 		this.mechanicService = mechanicService;
 	}
 
-	public async Task<IActionResult> All()
+	public async Task<IActionResult> Mine()
 	{
 		Guid userId = GetUserId();
 
@@ -36,7 +36,7 @@ public class CarController : BaseController
 
 		try
 		{
-			IEnumerable<CarAllViewModel> cars = await carService.AllUserCarsAsync(userId);
+			IEnumerable<CarAllViewModel> cars = await carService.MineCarsAsync(userId);
 
 			return View(cars);
 		}
@@ -87,7 +87,7 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		return RedirectToAction("All");
+		return RedirectToAction("Mine");
 	}
 
 	public async Task<IActionResult> Remove(Guid id)
@@ -101,7 +101,8 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		if (!await carService.isCarOwner(userId, id))
+		if (!await carService.isCarOwner(userId, id) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a the owner to remove this car";
 			return RedirectToAction("Index", "Home");
@@ -117,8 +118,7 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-
-		return RedirectToAction("All");
+		return RedirectToAction("Mine");
 	}
 
 	[HttpGet]
@@ -133,7 +133,8 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		if (!await carService.isCarOwner(userId, id))
+		if (!await carService.isCarOwner(userId, id) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a the owner to edit this car";
 			return RedirectToAction("Index", "Home");
@@ -163,7 +164,8 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		if (!await carService.isCarOwner(userId, id))
+		if (!await carService.isCarOwner(userId, id) &&
+		    !User.IsAdmin())
 		{
 			TempData[ErrorMessage] = "You must not be a the owner to edit this car";
 			return RedirectToAction("Index", "Home");
@@ -184,6 +186,6 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
-		return RedirectToAction("All");
+		return RedirectToAction("Mine");
 	}
 }
