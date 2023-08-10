@@ -39,6 +39,12 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 	.AddEntityFrameworkStores<CarQuestDbContext>();
 
 builder.Services.AddMemoryCache();
+builder.Services.AddResponseCaching();
+
+builder.Services.ConfigureApplicationCookie(cfg =>
+{
+	cfg.LoginPath = "/Identity/Account/Login";
+});
 
 builder.Services
 	.AddControllersWithViews()

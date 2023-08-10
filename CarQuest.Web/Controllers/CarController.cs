@@ -3,24 +3,26 @@
 using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.Extensions.Caching.Memory;
 using Services.Interfaces;
 
 using ViewModels.Car;
 
 using static Common.NotificationMessagesConstants;
-
+using static Common.GeneralApplicationConstants;
 
 [Authorize]
 public class CarController : BaseController
 {
 	private readonly ICarService carService;
 	private readonly IMechanicService mechanicService;
+	private readonly IMemoryCache memoryCache;
 
-	public CarController(ICarService carService, IMechanicService mechanicService)
+	public CarController(ICarService carService, IMechanicService mechanicService, IMemoryCache memoryCache)
 	{
 		this.carService = carService;
 		this.mechanicService = mechanicService;
+		this.memoryCache = memoryCache;
 	}
 
 	public async Task<IActionResult> Mine()
@@ -87,6 +89,8 @@ public class CarController : BaseController
 			return RedirectToAction("Index", "Home");
 		}
 
+		memoryCache.Remove(CarCacheKey);
+
 		return RedirectToAction("Mine");
 	}
 
@@ -117,6 +121,8 @@ public class CarController : BaseController
 			TempData[ErrorMessage] = e.Message;
 			return RedirectToAction("Index", "Home");
 		}
+
+		memoryCache.Remove(CarCacheKey);
 
 		return RedirectToAction("Mine");
 	}
@@ -185,6 +191,8 @@ public class CarController : BaseController
 			TempData[ErrorMessage] = e.Message;
 			return RedirectToAction("Index", "Home");
 		}
+
+		memoryCache.Remove(CarCacheKey);
 
 		return RedirectToAction("Mine");
 	}

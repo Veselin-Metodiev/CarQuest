@@ -22,6 +22,7 @@ public class UserController : BaseAdminController
 		this.memoryCache = memoryCache;
 	}
 
+	[ResponseCache(Duration = 30)]
 	public async Task<IActionResult> All()
 	{
 		IEnumerable<MechanicAllViewModel> mechanics =

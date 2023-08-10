@@ -15,9 +15,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
+using static CarQuest.Common.GeneralApplicationConstants;
+
 
 namespace CarQuest.Web.Areas.Identity.Pages.Account
 {
+	using Microsoft.Extensions.Caching.Memory;
+
 	public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -26,13 +30,15 @@ namespace CarQuest.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IMemoryCache _cache;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IMemoryCache cache)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -40,6 +46,7 @@ namespace CarQuest.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _cache = cache;
         }
 
         /// <summary>
@@ -155,6 +162,10 @@ namespace CarQuest.Web.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        _cache.Remove(MechanicsCacheKey);
+                        _cache.Remove(UsersCacheKey);
+
                         return LocalRedirect(returnUrl);
                     }
                 }

@@ -11,7 +11,7 @@ public class GeneralApplicationConstants
 
 	public const string UsersCacheKey = "UsersCache";
 	public const string MechanicsCacheKey = "MechanicsCache";
-	public const string TicketsCacheKey = "TicketsCache";
-
+	public const string CarCacheKey = "CarsCache";
 	public const int UsersCacheDurationMinutes = 5;
+	public const int CarsCacheDurationMinutes = 5;
 }

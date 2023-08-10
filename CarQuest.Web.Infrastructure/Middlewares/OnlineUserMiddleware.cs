@@ -15,7 +15,7 @@ public class OnlineUserMiddleware
 	private readonly int lastActivityMinutes;
 
 	private static readonly ConcurrentDictionary<string, bool> AllKeys =
-		new();
+		new ConcurrentDictionary<string, bool>();
 
 	public OnlineUserMiddleware(RequestDelegate next,
 		string cookieName = OnlineUsersCookieName,
@@ -30,46 +30,42 @@ public class OnlineUserMiddleware
 	{
 		if (context.User.Identity?.IsAuthenticated ?? false)
 		{
-			if (!context.Request.Cookies.TryGetValue(cookieName, out string userId))
+			if (!context.Request.Cookies.TryGetValue(this.cookieName, out string userId))
 			{
 				userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-				context.Response.Cookies.Append(cookieName, userId, new CookieOptions
-				{
-					HttpOnly = true,
-					MaxAge = TimeSpan.FromDays(3)
-				});
-
-				memoryCache.GetOrCreate(userId, cacheEntry =>
-				{
-					if (!AllKeys.TryAdd(userId, true))
-					{
-						cacheEntry.AbsoluteExpiration = DateTimeOffset.MinValue;
-					}
-					else
-					{
-						cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(lastActivityMinutes);
-						cacheEntry.RegisterPostEvictionCallback(RemoveKeyWhenExpired);
-					}
-
-					return string.Empty;
-				});
+				context.Response.Cookies.Append(this.cookieName, userId, new CookieOptions() { HttpOnly = true, MaxAge = TimeSpan.FromDays(30) });
 			}
+
+			memoryCache.GetOrCreate(userId, cacheEntry =>
+			{
+				if (!AllKeys.TryAdd(userId, true))
+				{
+					cacheEntry.AbsoluteExpiration = DateTimeOffset.MinValue;
+				}
+				else
+				{
+					cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(this.lastActivityMinutes);
+					cacheEntry.RegisterPostEvictionCallback(this.RemoveKeyWhenExpired);
+				}
+
+				return string.Empty;
+			});
 		}
 		else
 		{
-			if (context.Request.Cookies.TryGetValue(cookieName, out string userId))
+			if (context.Request.Cookies.TryGetValue(this.cookieName, out string userId))
 			{
 				if (!AllKeys.TryRemove(userId, out _))
 				{
 					AllKeys.TryUpdate(userId, false, true);
 				}
 
-				context.Response.Cookies.Delete(cookieName);
+				context.Response.Cookies.Delete(this.cookieName);
 			}
 		}
 
-		return next(context);
+		return this.next(context);
 	}
 
 	public static bool CheckIfUserIsOnline(string userId)
