@@ -19,7 +19,7 @@ public class CarController : BaseAdminController
 		this.memoryCache = memoryCache;
 	}
 
-	[ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client, Location = ResponseCacheLocation.Client, NoStore = false))]
+	[ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client, NoStore = false)]
 	public async Task<IActionResult> All()
 	{
 		IEnumerable<CarAllViewModel> cars =
