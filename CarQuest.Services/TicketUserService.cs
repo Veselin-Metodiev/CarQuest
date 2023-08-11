@@ -80,7 +80,7 @@ public class TicketUserService : ITicketUserService
 		{
 			ticket.CarId = ticketUserModel.CarId;
 			ticket.Description = ticketUserModel.Description;
-			ticketUserModel.Title = ticketUserModel.Title;
+			ticket.Title = ticketUserModel.Title;
 
 			await context.SaveChangesAsync();
 		}

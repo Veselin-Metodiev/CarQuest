@@ -34,6 +34,10 @@ public class CarUpdateViewModel : IMapFrom<Car>, IHaveCustomMappings
 	[Range(MileageMinValue, MileageMaxValue)]
 	public long Mileage { get; set; }
 
+	[Required]
+	[StringLength(CarImageUrlMaxLength, MinimumLength = CarImageUrlMinLength)]
+	public string ImageUrl { get; set; } = null!;
+
 	public void CreateMappings(IProfileExpression configuration)
 	{
 		configuration.CreateMap<Car, CarUpdateViewModel>()

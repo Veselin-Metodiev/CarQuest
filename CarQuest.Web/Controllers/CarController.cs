@@ -148,7 +148,7 @@ public class CarController : BaseController
 
 		try
 		{
-			CarUpdateViewModel car = await carService.GetCarAddAndUpdateViewModelAsync(id);
+			CarUpdateViewModel car = await carService.GetCarUpdateViewModelAsync(id);
 			return View(car);
 		}
 		catch (Exception e)

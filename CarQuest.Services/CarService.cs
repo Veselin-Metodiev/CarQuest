@@ -71,7 +71,7 @@ public class CarService : ICarService
         return car;
     }
 
-    public async Task<CarUpdateViewModel> GetCarAddAndUpdateViewModelAsync(Guid carId)
+    public async Task<CarUpdateViewModel> GetCarUpdateViewModelAsync(Guid carId)
     {
 	    Car car = await GetUserCarAsync(carId);
 
