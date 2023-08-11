@@ -24,10 +24,27 @@ Welcome to CarQuest, an ASP.NET Core application that helps users manage their c
    cd CarQuest
 
 2. **Setup the Database:**
-   *Configure the database connection string in appsettings.json.
-   *Open the Package Manager Console in Visual Studio (View > Other Windows > Package Manager Console).
-   *Run migrations to create the required database schema:
+   - Configure the database connection string in appsettings.json.
+   - Open the Package Manager Console in Visual Studio (View > Other Windows > Package Manager Console).
+   - Run migrations to create the required database schema:
+     ```sh
+     Add-Migration [Your Migration Name]
+     Update-Database
 
-  *Configure the database connection string in appsettings.json.
-  *Open the Package Manager Console in Visual Studio (View > Other Windows > Package Manager Console).
-  *Run migrations to create the required database schema:
+3. **Run the Application:**
+  - Press F5 in Visual Studio to build and run the application.
+
+**Admin Access:**
+  - To access the admin area, create a user account using the following email:
+  - Email: admin@carquest.com
+  - Choose your own password during registration.
+    
+**Technologies Used**
+  - ASP.NET Core
+  - Entity Framework Core
+  - Razor Pages
+  - Bootstrap (for styling)
+  - SQL Server
+  - Auto Mapper
+  - NUnit
+  - Fluent Assertion
