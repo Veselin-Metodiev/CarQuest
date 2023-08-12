@@ -1,6 +1,5 @@
 ﻿@using CarQuest.Services.Interfaces
 @using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using CarQuest.Data.Models
 @using CarQuest.Web.Infrastructure.Extensions
 @inject IMechanicService MechanicService
@@ -59,7 +58,10 @@
 							@if (!UserIsMechanic || User.IsAdmin())
 							{
 								<li class="nav-item">
-									<a class="nav-link text-dark" asp-area="" asp-controller="TicketUser" asp-action="Mine">Your Tickets</a>
+									<a class="nav-link text-dark" asp-area="" asp-controller="TicketUser" asp-action="Mine">Your Active Tickets</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="TicketUser" asp-action="Completed">Your Completed Tickets</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="TicketUser" asp-action="Add">Add Tickets</a>

@@ -59,6 +59,7 @@ public class CarService : ICarService
         carDb.Brand = car.Brand;
         carDb.Mileage = car.Mileage.ToString();
         carDb.Year = car.Year.ToString();
+        carDb.ImageUrl = car.ImageUrl;
 
         await context.SaveChangesAsync();
     }

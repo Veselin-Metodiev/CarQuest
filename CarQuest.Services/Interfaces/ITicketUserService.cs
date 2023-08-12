@@ -4,17 +4,19 @@ using Web.ViewModels.TicketUser;
 
 public interface ITicketUserService
 {
-	public IEnumerable<TicketUserAllViewModel> GetAllUserTicketsAsync(Guid userId);
+	IEnumerable<TicketUserAllViewModel> GetAllUserActiveTickets(Guid userId);
 
-	public Task AddUserTicketAsync(TicketUserAddViewModel ticketUserModel, Guid userId);
+	IEnumerable<TicketUserAllViewModel> GetAllUserCompletedTicketsAsync(Guid userId);
 
-	public Task RemoveUserTicketAsync(Guid ticketId);
+	Task AddUserTicketAsync(TicketUserAddViewModel ticketUserModel, Guid userId);
 
-	public Task<TicketUserUpdateViewModel> GetTicketModelByIdAsync (Guid ticketId);
+	Task RemoveUserTicketAsync(Guid ticketId);
 
-	public Task UpdateTicketAsync(TicketUserUpdateViewModel ticketUserModel);
+	Task<TicketUserUpdateViewModel> GetTicketModelByIdAsync (Guid ticketId);
 
-	public Task<MechanicInfoViewModel> GetMechanicInfoAsync(Guid userId);
+	Task UpdateTicketAsync(TicketUserUpdateViewModel ticketUserModel);
 
-	public Task<bool> IsUserOwner(Guid userId, Guid ticketId);
+	Task<MechanicInfoViewModel> GetMechanicInfoAsync(Guid userId);
+
+	Task<bool> IsUserOwner(Guid userId, Guid ticketId);
 }

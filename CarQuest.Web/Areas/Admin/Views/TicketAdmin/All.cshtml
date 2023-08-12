@@ -1,8 +1,8 @@
 ﻿@using CarQuest.Web.ViewModels.TicketMechanic
-@using CarQuest.Web.Infrastructure.Extensions
 @model IEnumerable<CarQuest.Web.ViewModels.TicketMechanic.TicketMechanicAllViewModel>
 @{
 	ViewData["Title"] = "All Tickets";
+	Layout = "_AdminLayout";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -28,15 +28,12 @@ else
 					<td>@ticket.Title</td>
 					<td>@ticket.Description</td>
 					<td>
-						<a asp-controller="TicketMechanic" asp-action="Details" asp-route-id="@ticket.CarId">@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</a>
+						<a asp-area="" asp-controller="TicketMechanic" asp-action="Details" asp-route-id="@ticket.CarId">@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</a>
 					</td>
 					<td>@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</td>
 					<td>@ticket.OwnerFirstName @ticket.OwnerLastName</td>
 					<td>
-						@if (!User.IsAdmin())
-						{
-							<a asp-controller="TicketMechanic" asp-action="Take" asp-route-id="@ticket.Id">Take</a>
-						}
+						<a asp-area="Admin" asp-controller="TicketAdmin" asp-action="Remove" asp-route-id="@ticket.Id">Remove</a>
 					</td>
 				</tr>
 			}

@@ -60,7 +60,7 @@ public class TicketUserServiceTests
 	public void CanCallGetAllUserTicketsAsync()
 	{
 		// Act
-		IEnumerable<TicketUserAllViewModel> result = ticketUserService.GetAllUserTicketsAsync(User.Id);
+		IEnumerable<TicketUserAllViewModel> result = ticketUserService.GetAllUserActiveTickets(User.Id);
 
 		// Assert
 		Assert.True(result.Any(t => t.Description == "SomeUserDescription" &&

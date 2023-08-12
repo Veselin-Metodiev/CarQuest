@@ -1,4 +1,4 @@
-﻿namespace CarQuest.Web.Controllers;
+﻿	namespace CarQuest.Web.Controllers;
 
 using System.Diagnostics;
 

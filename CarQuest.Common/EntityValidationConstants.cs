@@ -39,7 +39,7 @@ public static class EntityValidationConstants
 
     public class Mechanic
     {
-	    public const int PhoneNumberMaxLength = 20;
+	    public const int PhoneNumberMaxLength = 13;
 
 	    public const int ShopAddressMaxLength = 100;
     }
@@ -53,7 +53,7 @@ public static class EntityValidationConstants
 
     public class MechanicBecomeViewModel
     {
-	    public const int PhoneNumberMaxLength = 20;
+	    public const int PhoneNumberMaxLength = 13;
 	    public const int PhoneNumberMinLength = 10;
 
 	    public const int ShopAddressMaxLength = 500;

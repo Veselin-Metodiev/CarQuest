@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using Data;
 using Data.Models;
-
+using Data.Models.Enums;
 using Interfaces;
 
 using Mapping;
@@ -22,10 +22,24 @@ public class TicketUserService : ITicketUserService
 		this.context = context;
 	}
 
-	public IEnumerable<TicketUserAllViewModel> GetAllUserTicketsAsync(Guid userId)
+	public IEnumerable<TicketUserAllViewModel> GetAllUserActiveTickets(Guid userId)
 	{
 		IEnumerable<TicketUserAllViewModel> tickets = context.Tickets
-			.Where(t => t.OwnerId == userId)
+			.Where(t => t.OwnerId == userId &&
+			            (t.Status == Status.NotTaken ||
+						t.Status == Status.Taken))
+			.Include(t => t.Car)
+			.Include(t => t.AssignedMechanic)
+			.ThenInclude(m => m!.User)
+			.Select(t => AutoMapperConfig.MapperInstance.Map<TicketUserAllViewModel>(t));
+
+		return tickets;
+	}
+
+	public IEnumerable<TicketUserAllViewModel> GetAllUserCompletedTicketsAsync(Guid userId)
+	{
+		IEnumerable<TicketUserAllViewModel> tickets = context.Tickets
+			.Where(t => t.OwnerId == userId && t.Status == Status.Completed)
 			.Include(t => t.Car)
 			.Include(t => t.AssignedMechanic)
 			.ThenInclude(m => m!.User)

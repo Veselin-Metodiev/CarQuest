@@ -1,7 +1,7 @@
 ﻿namespace CarQuest.Web.Controllers;
 
-using CarQuest.Web.Infrastructure.Extensions;
-using CarQuest.Web.ViewModels.TicketUser;
+using Infrastructure.Extensions;
+using ViewModels.TicketUser;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 using ViewModels.Car;
-using ViewModels.TicketUser;
 
 using static Common.NotificationMessagesConstants;
 
@@ -42,7 +41,31 @@ public class TicketUserController : BaseController
 		try
 		{
 			IEnumerable<TicketUserAllViewModel> tickets =
-				ticketUserService.GetAllUserTicketsAsync(userId);
+				ticketUserService.GetAllUserActiveTickets(userId);
+			return View(tickets);
+		}
+		catch (Exception e)
+		{
+			TempData[ErrorMessage] = e.Message;
+			return RedirectToAction("Index", "Home");
+		}
+	}
+
+	public async Task<IActionResult> Completed()
+	{
+		Guid userId = GetUserId();
+
+		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
+		    !User.IsAdmin())
+		{
+			TempData[ErrorMessage] = "You must not be a mehcanic to see tickets";
+			return RedirectToAction("Index", "Home");
+		}
+
+		try
+		{
+			IEnumerable<TicketUserAllViewModel> tickets =
+				ticketUserService.GetAllUserCompletedTicketsAsync(userId);
 			return View(tickets);
 		}
 		catch (Exception e)
