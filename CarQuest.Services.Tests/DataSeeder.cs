@@ -52,6 +52,11 @@ public static class DataSeeder
 			User = MechanicUser
 		};
 
+		Category category = new Category
+		{
+			Name = "sport"
+		};
+
 		UserCar = new Car
 		{
 			Year = "2019",
@@ -62,6 +67,15 @@ public static class DataSeeder
 				"https://www.google.com/url?sa=i&url=https%3A%2F%2Fgreenrentacar.bg%2Fen%2Feconomy%2F63-yaris-cross-at&psig=AOvVaw2smYuUgRrL1SgtVHRz5OcN&ust=1691856354351000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMi8ipv-1IADFQAAAAAdAAAAABAE",
 			Owner = User
 		};
+
+		CarCategory carCategory = new CarCategory
+		{
+			Car = UserCar,
+			Category = category
+		};
+
+		category.CategoryCars.Add(carCategory);
+		UserCar.CarCategories.Add(carCategory);
 
 		CarToAdd = new Car
 		{

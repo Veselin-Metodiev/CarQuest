@@ -24,7 +24,7 @@ public class CarAddViewModel : IMapTo<Car>, IHaveCustomMappings
 	public string Model { get; set; } = null!;
 
 	[Required]
-	[YearRange(1900)]
+	[YearRange(YearMinValue)]
 	public int Year { get; set; }
 
 	[Required]
@@ -35,12 +35,18 @@ public class CarAddViewModel : IMapTo<Car>, IHaveCustomMappings
 	[StringLength(CarImageUrlMaxLength, MinimumLength = CarImageUrlMinLength)]
 	public string ImageUrl { get; set; } = null!;
 
+	[Required]
+	[StringLength(CategoriesMaxLength, MinimumLength = CategoriesMinLength)]
+	public string Categories { get; set; } = null!;
+
 	public void CreateMappings(IProfileExpression configuration)
 	{
 		configuration.CreateMap<CarAddViewModel, Car>()
 			.ForMember(d => d.Year, opt => opt
 				.MapFrom(s => s.Year.ToString()))
 			.ForMember(d => d.Mileage, opt => opt
-				.MapFrom(s => s.Mileage.ToString()));
+				.MapFrom(s => s.Mileage.ToString()))
+			.ForMember(d => d.CarCategories, opt => opt
+				.Ignore());
 	}
 }

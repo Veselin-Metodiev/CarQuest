@@ -28,6 +28,11 @@ public static class EntityValidationConstants
 
 	    public const long MileageMaxValue = 10000000;
 	    public const int MileageMinValue = 1;
+
+	    public const int CategoriesMaxLength = 50;
+	    public const int CategoriesMinLength = 1;
+
+	    public const int YearMinValue = 1900;
     }
 
     public class ApplicationUser
@@ -67,5 +72,10 @@ public static class EntityValidationConstants
 
 	    public const int DescriptionMaxLength = 500;
         public const int DescriptionMinLength = 5;
+    }
+
+    public class Category
+    {
+	    public const int NameMaxLength = 50;
     }
 }

@@ -69,6 +69,7 @@ public class CarServiceTests
 			Model = "Burzo",
 			Brand = "Lambo",
 			Mileage = "10000",
+			Categories = "sport",
 			ImageUrl =
 				"https://www.google.com/url?sa=i&url=https%3A%2F%2Fgreenrentacar.bg%2Fen%2Feconomy%2F63-yaris-cross-at&psig=AOvVaw2smYuUgRrL1SgtVHRz5OcN&ust=1691856354351000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMi8ipv-1IADFQAAAAAdAAAAABAE"
 		};
@@ -91,6 +92,7 @@ public class CarServiceTests
 			Model = "Bavno",
 			Brand = "Lambo",
 			Mileage = 100000,
+			Categories = "sport",
 			ImageUrl =
 				"https://www.google.com/url?sa=i&url=https%3A%2F%2Fgreenrentacar.bg%2Fen%2Feconomy%2F63-yaris-cross-at&psig=AOvVaw2smYuUgRrL1SgtVHRz5OcN&ust=1691856354351000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMi8ipv-1IADFQAAAAAdAAAAABAE",
 		};
@@ -136,6 +138,7 @@ public class CarServiceTests
 			Model = "Bavno",
 			Brand = "Lambo",
 			Mileage = 100000,
+			Categories = "sport",
 			ImageUrl =
 				"https://www.google.com/url?sa=i&url=https%3A%2F%2Fgreenrentacar.bg%2Fen%2Feconomy%2F63-yaris-cross-at&psig=AOvVaw2smYuUgRrL1SgtVHRz5OcN&ust=1691856354351000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMi8ipv-1IADFQAAAAAdAAAAABAE",
 		};
@@ -170,6 +173,7 @@ public class CarServiceTests
 			Model = "Burzo",
 			Brand = "Lambo",
 			Mileage = 10000,
+			Categories = "sport",
 			ImageUrl =
 				"https://www.google.com/url?sa=i&url=https%3A%2F%2Fgreenrentacar.bg%2Fen%2Feconomy%2F63-yaris-cross-at&psig=AOvVaw2smYuUgRrL1SgtVHRz5OcN&ust=1691856354351000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMi8ipv-1IADFQAAAAAdAAAAABAE",
 		};
@@ -206,6 +210,7 @@ public class CarServiceTests
 			Model = "Burzo",
 			Brand = "Lambo",
 			Mileage = "10000",
+			Categories = "sport",
 			ImageUrl =
 				"https://www.google.com/url?sa=i&url=https%3A%2F%2Fgreenrentacar.bg%2Fen%2Feconomy%2F63-yaris-cross-at&psig=AOvVaw2smYuUgRrL1SgtVHRz5OcN&ust=1691856354351000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMi8ipv-1IADFQAAAAAdAAAAABAE"
 		};

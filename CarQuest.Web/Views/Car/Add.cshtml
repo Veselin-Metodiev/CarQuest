@@ -30,6 +30,11 @@
 		<input asp-for="ImageUrl" class="form-control" required>
 		<span asp-validation-for="ImageUrl" class="text-danger"></span>
 	</div>
+	<div>
+		<label asp-for="Categories">Categories (comma-separated):</label>
+		<input asp-for="Categories" class="form-control">
+		<span asp-validation-for="Categories" class="text-danger"></span>
+	</div>
 	<button type="submit" class="btn btn-primary">Add Car</button>
 </form>
 

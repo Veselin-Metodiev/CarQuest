@@ -4,6 +4,7 @@ using CarQuest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarQuest.Data.Migrations
 {
     [DbContext(typeof(CarQuestDbContext))]
-    partial class CarQuestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230816165356_Category")]
+    partial class Category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,7 +153,7 @@ namespace CarQuest.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CarsCategories");
+                    b.ToTable("CarCategory");
                 });
 
             modelBuilder.Entity("CarQuest.Data.Models.Category", b =>
@@ -167,7 +169,7 @@ namespace CarQuest.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("CarQuest.Data.Models.Mechanic", b =>

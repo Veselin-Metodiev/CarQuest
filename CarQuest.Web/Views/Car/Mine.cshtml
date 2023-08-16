@@ -1,4 +1,5 @@
 ﻿@using CarQuest.Web.ViewModels.Car
+@using CarQuest.Data.Models
 @model IEnumerable<CarAllViewModel>
 @{
 	ViewData["Title"] = "Your Cars";
@@ -20,15 +21,16 @@ else
 					<div class="card-body">
 						<h5 class="card-title">@car.Brand @car.Model</h5>
 						<p class="card-text">
-							Year: @car.Year<br />
+							Year: @car.Year
 							Mileage: @car.Mileage
 						</p>
+						<p>@car.Categories</p>
 						<a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@car.Id"
-							   class="btn btn-warning">Edit</a>
+						   class="btn btn-warning">Edit</a>
 						<a asp-area="" asp-controller="Car" asp-action="Remove" asp-route-id="@car.Id"
 						   class="btn btn-danger">Delete</a>
 					</div>
-					
+
 				</div>
 			</div>
 		}

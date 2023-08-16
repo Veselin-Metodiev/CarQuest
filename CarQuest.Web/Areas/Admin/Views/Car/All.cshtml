@@ -24,6 +24,7 @@ else
 							Year: @car.Year<br />
 							Mileage: @car.Mileage
 						</p>
+						<p>@car.Categories</p>
 						<a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@car.Id"
 							   class="btn btn-warning">Edit</a>
 						<a asp-area="" asp-controller="Car" asp-action="Remove" asp-route-id="@car.Id"

@@ -12,6 +12,7 @@ public class Car
 	public Car()
 	{
 		Tickets = new HashSet<Ticket>();
+		CarCategories = new HashSet<CarCategory>();
 	}
 
     [Key]
@@ -44,4 +45,6 @@ public class Car
     public virtual ApplicationUser Owner { get; set; } = null!;
 
     public virtual ICollection<Ticket> Tickets { get; set; }
+
+    public virtual ICollection<CarCategory> CarCategories { get; set; }
 }
