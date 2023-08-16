@@ -26,6 +26,7 @@ public class CarQuestDbContext : IdentityDbContext<ApplicationUser, IdentityRole
         builder.Entity<ApplicationUser>().HasData(
 	        new ApplicationUser
 	        {
+				Id = Guid.NewGuid(),
 		        UserName = "Admin",
 		        NormalizedUserName = "ADMIN",
 		        Email = "admin@carquest.com",

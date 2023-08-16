@@ -30,7 +30,6 @@ else
 					<td>
 						<a asp-controller="TicketMechanic" asp-action="Details" asp-route-id="@ticket.CarId">@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</a>
 					</td>
-					<td>@ticket.Car.Brand @ticket.Car.Model @ticket.Car.Year</td>
 					<td>@ticket.OwnerFirstName @ticket.OwnerLastName</td>
 					<td>
 						@if (!User.IsAdmin())
