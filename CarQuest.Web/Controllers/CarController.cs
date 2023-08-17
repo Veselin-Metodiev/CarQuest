@@ -101,14 +101,14 @@ public class CarController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to remove cars";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (!await carService.isCarOwner(userId, id) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a the owner to remove this car";
+			TempData[ErrorMessage] = MustBeOwnerError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -135,14 +135,14 @@ public class CarController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to edit cars";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (!await carService.isCarOwner(userId, id) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a the owner to edit this car";
+			TempData[ErrorMessage] = MustBeOwnerError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -166,14 +166,14 @@ public class CarController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to edit cars";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (!await carService.isCarOwner(userId, id) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a the owner to edit this car";
+			TempData[ErrorMessage] = MustBeOwnerError;
 			return RedirectToAction("Index", "Home");
 		}
 

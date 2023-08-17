@@ -34,7 +34,7 @@ public class TicketUserController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to see tickets";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -58,7 +58,7 @@ public class TicketUserController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to see tickets";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -83,7 +83,7 @@ public class TicketUserController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to add tickets";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -111,7 +111,7 @@ public class TicketUserController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to add tickets";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -143,14 +143,14 @@ public class TicketUserController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to remove tickets";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (!await ticketUserService.IsUserOwner(userId, id) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must be a the owner to remove tickets";
+			TempData[ErrorMessage] = MustBeOwnerError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -175,14 +175,14 @@ public class TicketUserController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to edit tickets";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (!await ticketUserService.IsUserOwner(userId, id) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must be a the owner to edit tickets";
+			TempData[ErrorMessage] = MustBeOwnerError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -211,14 +211,14 @@ public class TicketUserController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to edit tickets";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (!await ticketUserService.IsUserOwner(userId, ticketUserModel.Id) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must be a the owner to edit tickets";
+			TempData[ErrorMessage] = MustBeOwnerError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -247,7 +247,7 @@ public class TicketUserController : BaseController
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must not be a mehcanic to see mehcanic info";
+			TempData[ErrorMessage] = MustNotBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 

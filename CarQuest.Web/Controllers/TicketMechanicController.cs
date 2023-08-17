@@ -32,7 +32,7 @@ public class TicketMechanicController : BaseController
 		if (!await mechanicService.MechanicExistsByUserIdAsync(GetUserId()) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must be a mehcanic to see users tickets";
+			TempData[ErrorMessage] = MustBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -56,13 +56,13 @@ public class TicketMechanicController : BaseController
 		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must be a mehcanic to take users tickets";
+			TempData[ErrorMessage] = MustBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (await ticketMechanicService.TicketIsAlreadyTaken(id, userId))
 		{
-			TempData[ErrorMessage] = "Ticket is already taken";
+			TempData[ErrorMessage] = TicketAlreadyTackenError;
 			return RedirectToAction("All");
 		}
 
@@ -86,7 +86,7 @@ public class TicketMechanicController : BaseController
 		if (!await mechanicService.MechanicExistsByUserIdAsync(userId) &&
 		    !User.IsAdmin())
 		{
-			TempData[ErrorMessage] = "You must be a mehcanic to see tickets";
+			TempData[ErrorMessage] = MustBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -109,7 +109,7 @@ public class TicketMechanicController : BaseController
 
 		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
-			TempData[ErrorMessage] = "You must be a mehcanic to complete tickets";
+			TempData[ErrorMessage] = MustBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -132,13 +132,13 @@ public class TicketMechanicController : BaseController
 
 		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
-			TempData[ErrorMessage] = "You must be a mehcanic to resign tickets";
+			TempData[ErrorMessage] = MustBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (!ticketMechanicService.IsMechanicAssigned(userId, id))
 		{
-			TempData[ErrorMessage] = "You must be the assigned mechanic to resign tickets";
+			TempData[ErrorMessage] = MustBeAssignedMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -161,13 +161,13 @@ public class TicketMechanicController : BaseController
 
 		if (!await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
-			TempData[ErrorMessage] = "You must be a mehcanic to resign tickets";
+			TempData[ErrorMessage] = MustBeMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (!ticketMechanicService.IsMechanicAssigned(userId, id))
 		{
-			TempData[ErrorMessage] = "You must be the assigned mechanic to complete tickets";
+			TempData[ErrorMessage] = MustBeAssignedMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 

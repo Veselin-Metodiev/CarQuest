@@ -16,6 +16,11 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
 			.OnDelete(DeleteBehavior.NoAction);
 
 		builder
+			.HasOne(t => t.Offer)
+			.WithOne(c => c.Ticket)
+			.OnDelete(DeleteBehavior.NoAction);
+
+		builder
 			.HasOne(t => t.Owner)
 			.WithMany(c => c.Tickets)
 			.HasForeignKey(t => t.OwnerId);

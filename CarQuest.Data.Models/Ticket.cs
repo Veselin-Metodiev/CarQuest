@@ -36,4 +36,9 @@ public class Ticket
 	public virtual Mechanic? AssignedMechanic { get; set; }
 
 	public Status Status { get; set; }
+
+	[ForeignKey(nameof(Offer))]
+	public Guid? OfferId { get; set; }
+
+	public virtual Offer? Offer { get; set; }
 }

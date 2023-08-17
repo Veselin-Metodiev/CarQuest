@@ -24,7 +24,7 @@ public class MechanicController : BaseController
 	{
 		if (await mechanicService.MechanicExistsByUserIdAsync(GetUserId()))
 		{
-			TempData["ErrorMessage"] = "You are already a mechanic";
+			TempData["ErrorMessage"] = AlreadyMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -38,19 +38,19 @@ public class MechanicController : BaseController
 
 		if (await mechanicService.MechanicExistsByUserIdAsync(userId))
 		{
-			TempData[ErrorMessage] = "You are already a mehcanic";
+			TempData[ErrorMessage] = AlreadyMechanicError;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (await mechanicService.MechanicExistsByPhoneNumberAsync(mechanicViewModel.PhoneNumber))
 		{
-			TempData[ErrorMessage] = "Mechanic with the provided phone number already exists!";
+			TempData[ErrorMessage] = PhoneNumberAlreadyExists;
 			return RedirectToAction("Index", "Home");
 		}
 
 		if (mechanicService.MechanicHasTicketsAsync(userId))
 		{
-			TempData[ErrorMessage] = "You must not have any active tickets to be a mechanic";
+			TempData[ErrorMessage] = ExistingTicketsError;
 			return RedirectToAction("Index", "Home");
 		}
 

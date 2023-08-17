@@ -1,0 +1,38 @@
+﻿@model CarQuest.Web.ViewModels.Offer.OfferEditViewModel
+@{
+	ViewData["Title"] = "Add Offer";
+}
+
+<h1>@ViewData["Title"]</h1>
+<form asp-page-handler="CreateOffer" method="post">
+	<div>
+		<label asp-for="Title">Title:</label>
+		<input asp-for="Title" class="form-control" required>
+		<span asp-validation-for="Title" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="Description">Description:</label>
+		<textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="EstimatedDuration">Estimated Duration:</label>
+		<div class="input-group">
+			<input asp-for="EstimatedDuration.Days" class="form-control" placeholder="Days" type="number">
+			<input asp-for="EstimatedDuration.Hours" class="form-control" placeholder="Hours" type="number">
+			<input asp-for="EstimatedDuration.Minutes" class="form-control" placeholder="Minutes" type="number">
+		</div>
+		<span asp-validation-for="EstimatedDuration" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="Cost">Cost:</label>
+		<input asp-for="Cost" class="form-control" type="number" step="0.01" required>
+		<span asp-validation-for="Cost" class="text-danger"></span>
+	</div>
+	<button type="submit" class="btn btn-primary" asp-route="@Model.Id">Edit Offer</button>
+</form>
+
+@section Scripts
+{
+	<partial name="_ValidationScriptsPartial" />
+}

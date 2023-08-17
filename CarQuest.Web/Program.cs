@@ -58,6 +58,7 @@ builder.Services.AddScoped<IMechanicService, MechanicService>();
 builder.Services.AddScoped<ITicketUserService, TicketUserService>();
 builder.Services.AddScoped<ITicketMechanicService, TicketMechanicService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IOfferService, OfferService>();
 
 WebApplication app = builder.Build();
 

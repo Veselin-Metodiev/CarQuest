@@ -30,7 +30,17 @@ else
 					<td>@ticket.OwnerFirstName @ticket.OwnerLastName</td>
 					<td>
 						<a asp-controller="TicketMechanic" asp-action="Resign" asp-route-id="@ticket.Id">Resign</a> |
-						<a asp-controller="TicketMechanic" asp-action="Complete" asp-route-id="@ticket.Id">Complete</a>
+						@if (ticket.OfferId == Guid.Empty)
+						{
+							<a asp-controller="Offer" asp-action="Add" asp-route-id="@ticket.Id">Make Offer</a>
+						}
+						else
+						{
+							<a asp-controller="Offer" asp-action="Details" asp-route-id="@ticket.OfferId">View Offer |</a>
+							@*<a asp-controller="TicketMechanic" asp-action="Complete" asp-route-id="@ticket.Id">Complete | </a>*@
+						}
+
+					}
 					</td>
 				</tr>
 			}

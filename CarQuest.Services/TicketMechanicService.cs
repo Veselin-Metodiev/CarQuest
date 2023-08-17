@@ -62,13 +62,20 @@ public class TicketMechanicService : ITicketMechanicService
 
 	public async Task ResignTicketAsync(Guid ticketId)
 	{
-		Ticket? ticket = await context
-			.Tickets.FirstOrDefaultAsync(t => t.Id == ticketId);
+		Ticket? ticket = await context.Tickets
+			.Include(t => t.Offer)
+			.FirstOrDefaultAsync(t => t.Id == ticketId);
 
 		if (ticket != null)
 		{
 			ticket.AssignedMechanicId = null;
 			ticket.Status = Status.NotTaken;
+
+			if (ticket.Offer != null)
+			{
+				ticket.OfferId = null;
+				context.Offers.Remove(ticket.Offer);
+			}
 
 			await context.SaveChangesAsync();
 		}

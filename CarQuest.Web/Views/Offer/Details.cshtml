@@ -1,0 +1,42 @@
+﻿@model CarQuest.Web.ViewModels.Offer.OfferDetailsViewModel
+@{
+	ViewData["Title"] = "Offer Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>
+	<h3>@Model.Title</h3>
+	<p>@Model.Description</p>
+	<p>Estimated Duration: @FormatDuration(Model.EstimatedDuration)</p>
+	<p>Cost: $@Model.Cost</p>
+</div>
+
+@if (Model.HasUserAccepted)
+{
+	<div class="mt-4">
+		<p><strong>This offer has been accepted by the user.</strong></p>
+	</div>
+}
+else
+{
+	<div class="mt-4">
+		<p><strong>This offer has not been accepted by the user.</strong></p>
+	</div>
+
+	<a asp-controller="Offer" asp-action="Edit" asp-route="@Model.Id" class="btn btn-secondary mt-4">Edit | </a>
+	<a asp-controller="Offer" asp-action="Delete" asp-route="@Model.Id" class="btn btn-secondary mt-4">Edit | </a>
+}
+
+<a asp-controller="TicketMechanic" asp-action="Mine" class="btn btn-secondary mt-4">Back to Offers</a>
+
+@functions {
+
+	string FormatDuration(TimeSpan duration)
+	{
+		int days = duration.Days;
+		int hours = duration.Hours;
+		int minutes = duration.Minutes;
+
+		return $"{days:D2}:{hours:D2}:{minutes:D2}";
+	}
+}

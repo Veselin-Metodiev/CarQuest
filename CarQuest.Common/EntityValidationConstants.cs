@@ -35,6 +35,21 @@ public static class EntityValidationConstants
 	    public const int YearMinValue = 1900;
     }
 
+    public class Offer
+    {
+	    public const int TitleMaxLength = 50;
+	    public const int DescriptionMaxLength = 200;
+    }
+
+    public class OfferAddViewModel
+    {
+	    public const int TitleMaxLength = 50;
+	    public const int TitleMinLength = 5;
+	    public const int DescriptionMaxLength = 200;
+	    public const int DescriptionMinLength = 10;
+	    public const int HoursMaxLength = 24;
+    }
+
     public class ApplicationUser
     {
 	    public const int FirstNameMaxLength = 50;

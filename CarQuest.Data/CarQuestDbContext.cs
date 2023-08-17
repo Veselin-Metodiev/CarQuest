@@ -20,11 +20,13 @@ public class CarQuestDbContext : IdentityDbContext<ApplicationUser, IdentityRole
     public DbSet<Ticket> Tickets { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<CarCategory> CarsCategories { get; set; } = null!;
+    public DbSet<Offer> Offers { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfiguration(new TicketConfiguration());
         builder.ApplyConfiguration(new CarCategoryConfiguration());
+        builder.ApplyConfiguration(new OfferConfiguration());
 
     //    builder.Entity<ApplicationUser>().HasData(
 	   //     new ApplicationUser
