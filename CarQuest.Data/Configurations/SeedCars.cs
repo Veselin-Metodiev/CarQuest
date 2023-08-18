@@ -15,8 +15,7 @@ public class SeedCars : IEntityTypeConfiguration<Car>
 			Brand = "Ford",
 			Year = "2012",
 			Mileage = "100000",
-			ImageUrl =
-				"https://www.google.com/url?sa=i&url=https%3A%2F%2Fgreenrentacar.bg%2Fen%2Feconomy%2F63-yaris-cross-at&psig=AOvVaw2smYuUgRrL1SgtVHRz5OcN&ust=1691856354351000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMi8ipv-1IADFQAAAAAdAAAAABAE",
+			ImageUrl = "https://www.cnet.com/a/img/resize/9d18bb42850bdb40a537ff761ff96129d4aab5e1/hub/2011/04/18/35e87d3a-f0f5-11e2-8c7c-d4ae52e62bcc/34641485_OVR_1.jpg?auto=webp&width=1200",
 			OwnerId = Guid.Parse("CE0B3F5F-5558-43E9-B1B9-07B8F4451DF2")
 		});
 	}

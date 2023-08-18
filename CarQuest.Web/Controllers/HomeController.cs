@@ -28,8 +28,18 @@ public class HomeController : Controller
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public IActionResult Error(int statusCode)
     {
+        if (statusCode == 404)
+        {
+            return View("Error404");
+        }
+
+        if (statusCode == 500)
+        {
+            return View("Error500");
+        }
+
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
