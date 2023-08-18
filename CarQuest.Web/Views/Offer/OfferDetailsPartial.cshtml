@@ -1,0 +1,28 @@
+﻿@model CarQuest.Web.ViewModels.Offer.OfferDetailsViewModel
+
+<div>
+	<h3>@Model.Title</h3>
+	<p>@Model.Description</p>
+	<p>
+		Estimated Duration: @Model.EstimatedDurationDays
+		@if (Model.EstimatedDurationDays <= 1)
+		{
+			@Html.Raw("Day")
+		}
+		else
+		{
+			@Html.Raw("Days")
+		}
+
+		@Model.EstimatedDurationHours
+		@if (Model.EstimatedDurationHours <= 1)
+		{
+			@Html.Raw("Hour")
+		}
+		else
+		{
+			@Html.Raw("Hours")
+		}
+	</p>
+	<p>Cost: $@Model.Cost</p>
+</div>

@@ -11,4 +11,10 @@ public interface IOfferService
 	Task<OfferEditViewModel?> GetOfferEditViewModel(Guid offerId);
 
 	Task UpdateOfferAsync(OfferEditViewModel offerModel);
+
+	Task DeleteOfferAsync(Guid offerId);
+
+	Task AcceptOfferAsync(Guid offerId);
+
+	Task DeclineOfferAsync(Guid offerId);
 }

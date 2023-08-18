@@ -28,10 +28,6 @@ public class OfferService : IOfferService
 		if (ticket != null)
 		{
 			Offer offer = AutoMapperConfig.MapperInstance.Map<Offer>(offerModel);
-
-			//offer.EstimatedDuration =
-			//	new TimeSpan(offerModel.EstimatedDurationDays, offerModel.EstimatedDurationHours, 0, 0);
-
 			await context.Offers.AddAsync(offer);
 
 			ticket.Offer = offer;
@@ -81,9 +77,55 @@ public class OfferService : IOfferService
 		{
 			offer.Cost = offerModel.Cost;
 			offer.Description = offerModel.Description;
-			//offer.EstimatedDuration = offerModel.EstimatedDuration;
+			offer.EstimatedDurationHours = offerModel.EstimatedDurationHours;
+			offer.EstimatedDurationDays = offerModel.EstimatedDurationDays ?? 0;
 			offer.Title = offerModel.Title;
 
+			await context.SaveChangesAsync();
+		}
+	}
+
+	public async Task DeleteOfferAsync(Guid offerId)
+	{
+		Offer? offer = await context.Offers
+			.FirstOrDefaultAsync(o => o.Id == offerId);
+
+
+		if (offer != null)
+		{
+			Ticket ticket = await context.Tickets
+				.FirstAsync(t => t.OfferId == offerId);
+
+			ticket.OfferId = null;
+
+			context.Offers.Remove(offer);
+			await context.SaveChangesAsync();
+		}
+	}
+
+	public async Task AcceptOfferAsync(Guid offerId)
+	{
+		Offer? offer = await context.Offers
+			.FirstOrDefaultAsync(o => o.Id == offerId);
+
+		if (offer != null)
+		{
+			offer.HasUserAccepted = true;
+			await context.SaveChangesAsync();
+		}
+	}
+
+	public async Task DeclineOfferAsync(Guid offerId)
+	{
+		Offer? offer = await context.Offers
+			.Include(o => o.Ticket)
+			.FirstOrDefaultAsync(o => o.Id == offerId);
+
+		if (offer != null)
+		{
+			offer.Ticket.OfferId = null;
+
+			context.Offers.Remove(offer);
 			await context.SaveChangesAsync();
 		}
 	}

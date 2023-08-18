@@ -1,0 +1,23 @@
+﻿@model CarQuest.Web.ViewModels.Offer.OfferDetailsViewModel
+
+<partial name="OfferDetailsPartial" model="@Model"/>
+
+@if (Model.HasUserAccepted)
+{
+	<div class="mt-4">
+		<p><strong>This offer has been accepted by the user.</strong></p>
+	</div>
+}
+else
+{
+	<div class="mt-4">
+		<p><strong>This offer has not been accepted by the user.</strong></p>
+	</div>
+
+	<div>
+		<a asp-controller="Offer" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-4">Edit</a>
+		<a asp-controller="Offer" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary mt-4">Delete</a>
+	</div>
+}
+
+<a asp-controller="TicketMechanic" asp-action="Mine" class="btn btn-secondary mt-4">Back to Offers</a>

@@ -54,6 +54,7 @@ public class TicketMechanicService : ITicketMechanicService
 			.Where(t => t.AssignedMechanicId == mechanicId && t.Status == status)
 			.Include(t => t.Car)
 			.Include(t => t.Owner)
+			.Include(t => t.Offer)
 			.Select(t => AutoMapperConfig.MapperInstance.Map<TicketMechanicAllViewModel>(t))
 			.ToArrayAsync();
 

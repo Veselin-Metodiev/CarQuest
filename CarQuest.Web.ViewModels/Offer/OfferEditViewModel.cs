@@ -7,7 +7,7 @@ using Services.Mapping;
 
 using static Common.EntityValidationConstants.OfferAddViewModel;
 
-public class OfferEditViewModel : IMapTo<Offer>
+public class OfferEditViewModel : IMapTo<Offer>, IMapFrom<Offer>
 {
 	public Guid Id { get; set; }
 
@@ -19,7 +19,14 @@ public class OfferEditViewModel : IMapTo<Offer>
 	[StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
 	public string Description { get; set; } = null!;
 
-	public TimeSpan EstimatedDuration { get; set; }
+	[Range(DaysMinLength, DaysMaxLength)]
+	public int? EstimatedDurationDays { get; set; }
 
+	[Required]
+	[Range(HoursMinLength, HoursMaxLength)]
+	public int EstimatedDurationHours { get; set; }
+
+	[Required]
+	[Range(CostMinLength, CostMaxLength)]
 	public decimal Cost { get; set; }
 }

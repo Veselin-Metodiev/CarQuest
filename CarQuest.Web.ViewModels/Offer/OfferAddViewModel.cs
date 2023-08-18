@@ -18,11 +18,14 @@ public class OfferAddViewModel : IMapTo<Offer>
 	[StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
 	public string Description { get; set; } = null!;
 
-	public int EstimatedDurationDays { get; set; }
+	[Range(DaysMinLength, DaysMaxLength)]
+	public int? EstimatedDurationDays { get; set; }
 
 	[Required]
-	[Range(1, HoursMaxLength)]
+	[Range(HoursMinLength, HoursMaxLength)]
 	public int EstimatedDurationHours { get; set; }
 
+	[Required]
+	[Range(CostMinLength, CostMaxLength)]
 	public decimal Cost { get; set; }
 }

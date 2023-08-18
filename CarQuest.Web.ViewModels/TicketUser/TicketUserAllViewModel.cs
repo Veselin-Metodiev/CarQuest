@@ -29,6 +29,8 @@ public class TicketUserAllViewModel : IMapFrom<Ticket>, IHaveCustomMappings
 
 	public Status Status { get; set; }
 
+	public Guid? OfferId { get; set; }
+
 	public void CreateMappings(IProfileExpression configuration)
 	{
 		configuration.CreateMap<Ticket, TicketUserAllViewModel>()

@@ -23,7 +23,9 @@ public class TicketMechanicAllViewModel : IMapFrom<Ticket>, IHaveCustomMappings
 
 	public string OwnerLastName { get; set; } = null!;
 
-	public Guid OfferId { get; set; }
+	public Guid? OfferId { get; set; }
+
+	public Offer? Offer { get; set; }
 
 	public void CreateMappings(IProfileExpression configuration)
 	{

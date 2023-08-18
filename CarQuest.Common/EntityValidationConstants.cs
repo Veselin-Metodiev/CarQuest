@@ -45,9 +45,18 @@ public static class EntityValidationConstants
     {
 	    public const int TitleMaxLength = 50;
 	    public const int TitleMinLength = 5;
+
 	    public const int DescriptionMaxLength = 200;
 	    public const int DescriptionMinLength = 10;
+
 	    public const int HoursMaxLength = 24;
+        public const int HoursMinLength = 1;
+
+        public const int DaysMaxLength = 100;
+        public const int DaysMinLength = 0;
+
+        public const int CostMinLength = 1;
+        public const int CostMaxLength = int.MaxValue;
     }
 
     public class ApplicationUser

@@ -19,6 +19,7 @@ else
 				<th>Car</th>
 				<th>Status</th>
 				<th>Assigned Mechanic</th>
+				<th>Offer</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,6 +35,16 @@ else
 						<td>
 							<a asp-controller="TicketUser" asp-action="MechanicInfo" asp-route-id="@ticket.AssignedMechanicId">@ticket.AssignedMechanicFirstName @ticket.AssignedMechanicLastName</a>
 						</td>
+						@if (ticket.OfferId != Guid.Empty)
+						{
+							<td>
+								<a asp-controller="Offer" asp-action="DetailsUser" asp-route-id="@ticket.OfferId">View Offer</a>
+							</td>
+						}
+						else
+						{
+							<td>None</td>
+						}
 					}
 					else
 					{

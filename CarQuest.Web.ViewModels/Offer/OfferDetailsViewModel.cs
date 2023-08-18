@@ -11,7 +11,9 @@ public class OfferDetailsViewModel : IMapFrom<Offer>
 
 	public string Description { get; set; } = null!;
 
-	public TimeSpan EstimatedDuration { get; set; }
+	public int EstimatedDurationDays { get; set; }
+
+	public int EstimatedDurationHours { get; set; }
 
 	public decimal Cost { get; set; }
 
