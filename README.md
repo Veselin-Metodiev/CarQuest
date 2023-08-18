@@ -14,6 +14,8 @@ Welcome to CarQuest, an ASP.NET Core application that helps users manage their c
   
 - **Take Tickets** Mechanics can take the tickets.
 
+- **Manage Offers** Mechanics can create offers for tickets and users can accept or decline them
+
 - **Admin Area:** The application includes an admin area for managing system-wide settings and data.
 
 ## Getting Started
@@ -35,9 +37,17 @@ Welcome to CarQuest, an ASP.NET Core application that helps users manage their c
   - Press F5 in Visual Studio to build and run the application.
 
 **Admin Access:**
-  - To access the admin area, create a user account using the following email:
+  - An admin is seeded with the database. Simply login with the credentials below:
   - Email: admin@carquest.com
-  - Choose your own password during registration.
+  - Password: 123456
+
+**Additional Seeded Users**
+  -A Mechanic with email: testmechanicuser@carquest.com
+  -A User with email: testuser@carquest.com
+  -Both have the password: 123456
+
+**The project is published in Azure**
+Here is the link to the site: https://carquestweb20230819003419.azurewebsites.net/
     
 **Technologies Used**
   - ASP.NET Core
