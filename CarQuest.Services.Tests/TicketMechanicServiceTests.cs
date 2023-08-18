@@ -36,7 +36,7 @@ public class TicketMechanicServiceTests
 		options = new DbContextOptionsBuilder<CarQuestDbContext>()
 			.UseInMemoryDatabase("CarQuestInMemory" + Guid.NewGuid())
 			.Options;
-		context = new CarQuestDbContext(options);
+		context = new CarQuestDbContext(options, false);
 
 		context.Database.EnsureCreated();
 		SeedDatabase(context);
@@ -151,6 +151,7 @@ public class TicketMechanicServiceTests
 			Mileage = "10000",
 			ImageUrl =
 				"https://www.google.com/url?sa=i&url=https%3A%2F%2Fgreenrentacar.bg%2Fen%2Feconomy%2F63-yaris-cross-at&psig=AOvVaw2smYuUgRrL1SgtVHRz5OcN&ust=1691856354351000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMi8ipv-1IADFQAAAAAdAAAAABAE",
+			Categories = "sport"
 		};
 
 		// Act

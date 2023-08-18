@@ -37,7 +37,7 @@ public class CarServiceTests
 		options = new DbContextOptionsBuilder<CarQuestDbContext>()
 			.UseInMemoryDatabase("CarQuestInMemory" + Guid.NewGuid())
 			.Options;
-		context = new CarQuestDbContext(options);
+		context = new CarQuestDbContext(options, false);
 
 		context.Database.EnsureCreated();
 		SeedDatabase(context);

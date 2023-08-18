@@ -13,6 +13,7 @@ public static class DataSeeder
 	public static Ticket UserTicket;
 	public static Ticket MechanicTicket;
 	public static Car CarToAdd;
+	public static Offer UserTicketOffer;
 
 	public static void SeedDatabase(CarQuestDbContext context)
 	{
@@ -103,6 +104,16 @@ public static class DataSeeder
 			Status = Status.Taken
 		};
 
+		UserTicketOffer = new Offer
+		{
+			Title = "SomeOfferTitle",
+			Description = "SomeOfferDescription",
+			Cost = 10,
+			EstimatedDurationDays = 1,
+			EstimatedDurationHours = 1,
+			Ticket = UserTicket
+		};
+
 		context.Users.Add(User);
 		context.Users.Add(MechanicUser);
 		context.Mechanics.Add(Mechanic);
@@ -110,10 +121,12 @@ public static class DataSeeder
 		context.Cars.Add(CarToAdd);
 		context.Tickets.Add(UserTicket);
 		context.Tickets.Add(MechanicTicket);
+		context.Offers.Add(UserTicketOffer);
 
 		User.Tickets.Add(UserTicket);
 		User.Tickets.Add(MechanicTicket);
 		Mechanic.Tickets.Add(MechanicTicket);
+		UserTicket.Offer = UserTicketOffer;
 
 		context.SaveChanges();
 	}
