@@ -4,6 +4,7 @@ using CarQuest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarQuest.Data.Migrations
 {
     [DbContext(typeof(CarQuestDbContext))]
-    partial class CarQuestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230818125222_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,55 +104,35 @@ namespace CarQuest.Data.Migrations
                         {
                             Id = new Guid("19b96a81-b85c-447d-8a5b-f156453c3a4f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "84fa5614-537a-46e6-90eb-c09c57705c3a",
+                            ConcurrencyStamp = "8da29d1e-7ddf-4582-8f41-d4bc0e801ace",
                             Email = "admin@carquest.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
                             LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CARQUEST.COM",
-                            NormalizedUserName = "ADMIN@CARQUEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFjUJuORyoJ5t/hh6uVQ8etULZFAxVF5MrBBAqSU4mUQOZ+2PX9GcrXtLtmEuEyzqQ==",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ada1bae8-54fd-4648-8ec3-b898a0c8eca1",
                             TwoFactorEnabled = false,
-                            UserName = "admin@carquest.com"
+                            UserName = "Admin"
                         },
                         new
                         {
                             Id = new Guid("ce0b3f5f-5558-43e9-b1b9-07b8f4451df2"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b8b65f89-cfb7-40ba-9a64-058b568ce8b8",
+                            ConcurrencyStamp = "f21d8cb9-765c-469d-b88c-a8d1ea44e4bd",
                             Email = "testuser@carquest.com",
                             EmailConfirmed = true,
                             FirstName = "Test",
                             LastName = "User",
                             LockoutEnabled = false,
                             NormalizedEmail = "TESTUSER@CARQUEST.COM",
-                            NormalizedUserName = "TESTUSER@CARQUEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO1C/kJZojZAOrZcRoF85l8gzpJqgLNYnNbwYamZ5mxJq5kslib060SCaJ4eJSpGxw==",
+                            NormalizedUserName = "TESTUSER",
+                            PasswordHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9dc3617f-c338-4f10-a9eb-39a96d1f1968",
                             TwoFactorEnabled = false,
-                            UserName = "testuser@carquest.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("347325e5-c944-4229-b29f-9c7d94d81cbd"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "57a7cb0a-8646-42ce-8720-94a31a36d163",
-                            Email = "testmechanicuser@carquest.com",
-                            EmailConfirmed = true,
-                            FirstName = "Mechanic",
-                            LastName = "Test",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "TESTMECHANICUSER@CARQUEST.COM",
-                            NormalizedUserName = "TESTMECHANICUSER@CARQUEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC9P6OvHNAcu0l9MFLbp/3K1bo32DAtLSRxaG7N/1gFk+7EACx4YtqiQEvyu1YhK5A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1167b1ac-7945-4178-bce3-9d42be4edf36",
-                            TwoFactorEnabled = false,
-                            UserName = "testmechanicuser@carquest.com"
+                            UserName = "TestUser"
                         });
                 });
 

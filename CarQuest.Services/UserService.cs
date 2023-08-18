@@ -18,6 +18,7 @@ public class UserService : IUserService
 	public async Task<ICollection<ApplicationUserAllViewModel>> GetAllApplicationUsersAsync()
 	{
 		ICollection<ApplicationUserAllViewModel> appUsers = await context.Users
+			.Where(u => !context.Mechanics.Any(m => m.UserId == u.Id))
 			.Select(u => AutoMapperConfig.MapperInstance.Map<ApplicationUserAllViewModel>(u))
 			.ToArrayAsync();
 
