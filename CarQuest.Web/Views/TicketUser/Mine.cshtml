@@ -35,16 +35,17 @@ else
 						<td>
 							<a asp-controller="TicketUser" asp-action="MechanicInfo" asp-route-id="@ticket.AssignedMechanicId">@ticket.AssignedMechanicFirstName @ticket.AssignedMechanicLastName</a>
 						</td>
-						@if (ticket.OfferId != Guid.Empty)
-						{
-							<td>
-								<a asp-controller="Offer" asp-action="DetailsUser" asp-route-id="@ticket.OfferId">View Offer</a>
-							</td>
-						}
-						else
-						{
-							<td>None</td>
-						}
+					}
+					else
+					{
+						<td>None</td>
+					}
+
+					@if (ticket.OfferId != null)
+					{
+						<td>
+							<a asp-controller="Offer" asp-action="DetailsUser" asp-route-id="@ticket.OfferId">View Offer</a>
+						</td>
 					}
 					else
 					{
