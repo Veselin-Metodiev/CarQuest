@@ -42,12 +42,12 @@ Welcome to CarQuest, an ASP.NET Core application that helps users manage their c
   - Password: 123456
 
 **Additional Seeded Users**
-  -A Mechanic with email: testmechanicuser@carquest.com
-  -A User with email: testuser@carquest.com
-  -Both have the password: 123456
+  - A Mechanic with email: testmechanicuser@carquest.com
+  - A User with email: testuser@carquest.com
+  - Both have the password: 123456
 
 **The project is published in Azure**
-  -Here is the link to the site: https://carquestweb20230819003419.azurewebsites.net/
+  - Here is the link to the site: https://carquestweb20230819003419.azurewebsites.net/
     
 **Technologies Used**
   - ASP.NET Core
