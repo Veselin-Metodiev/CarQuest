@@ -35,6 +35,7 @@ public class TicketMechanicService : ITicketMechanicService
 	public async Task TakeTicketAsync(Guid ticketId, Guid userId)
 	{
 		Ticket? ticket = await context.Tickets
+			.Include(t => t.Offer)
 			.FirstOrDefaultAsync(t => t.Id == ticketId);
 
 		if (ticket != null)

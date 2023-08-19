@@ -31,7 +31,7 @@ else
 					</td>
 					<td>@ticket.OwnerFirstName @ticket.OwnerLastName</td>
 					<td>
-						@if (ticket.OfferId == Guid.Empty)
+						@if (ticket.OfferId == null)
 						{
 							<a asp-controller="Offer" asp-action="Add" asp-route-id="@ticket.Id">Make Offer</a> @Html.Raw("|")
 							<a asp-controller="TicketMechanic" asp-action="Resign" asp-route-id="@ticket.Id">Resign</a>
