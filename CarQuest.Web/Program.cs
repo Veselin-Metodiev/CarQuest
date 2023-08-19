@@ -27,13 +27,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 		options.SignIn.RequireConfirmedAccount =
 			builder.Configuration.GetValue<bool>("Identity:SignId:RequireConfirmedAccount");
 		options.Password.RequireLowercase =
-			builder.Configuration.GetValue<bool>("Identity:SignId:RequireLowercase");
+			builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
 		options.Password.RequireUppercase =
-			builder.Configuration.GetValue<bool>("Identity:SignId:RequireUppercase");
+			builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
 		options.Password.RequireNonAlphanumeric =
-			builder.Configuration.GetValue<bool>("Identity:SignId:RequireNonAlphanumeric");
+			builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
 		options.Password.RequiredLength =
-			builder.Configuration.GetValue<int>("Identity:SignId:RequiredLength");
+			builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
 	})
 	.AddRoles<IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<CarQuestDbContext>();
@@ -64,7 +64,7 @@ WebApplication app = builder.Build();
 
 AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseMigrationsEndPoint();
@@ -72,11 +72,11 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error/500");
-    app.UseExceptionHandler("/Home/Error/404");
-    app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
+	app.UseExceptionHandler("/Home/Error/500");
+	app.UseExceptionHandler("/Home/Error/404");
+	app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
 
-    app.UseHsts();
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
